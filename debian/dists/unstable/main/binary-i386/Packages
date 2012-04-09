@@ -1,0 +1,308 @@
+Package: devmon
+Version: 1.0.5-1
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 40
+Depends: udisks, bash (>= 4), zenity
+Priority: optional
+Section: utils
+Filename: pool/main/d/devmon/devmon_1.0.5-1_all.deb
+Size: 9428
+SHA256: 0e38a093c4ef1caf31215080f74ed66fa87e35f411922be294f7076447e96b1f
+SHA1: 0d9a145afdc406f5fad91970b51dc5f4637e8c32
+MD5sum: 1ba8ca21e2250979730f6b2e78391eb6
+Description: Automounts optical and removable drives using udisks
+ devmon is a configuration-less bash wrapper script for udisks which
+ automounts optical discs and removable drives. It can also selectively
+ autostart apps or execute commands after mounting, ignore specified devices
+ and volume labels, and manually mount and unmount devices.
+
+Package: kscrubber
+Version: 1.2.8-1
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 44
+Depends: secure-delete, sqlite3
+Priority: optional
+Section: utils
+Filename: pool/main/k/kscrubber/kscrubber_1.2.8-1_all.deb
+Size: 9394
+SHA256: 850e679b0a52bbce3e257a694c797c6c44934df38a252b228e39c78ec973f7f4
+SHA1: 55eac2b1fabbc69769901555c6cdd6d95cfd757d
+MD5sum: aefe3ba3d8805a6592e229d54e6c0cce
+Description: Cleans logs and removes recent activity information
+ A tool for removing and cleaning specific system files, logs, and user
+ files, for the purposes of freeing disk space and also removing recent
+ activity information.
+
+Package: mountiso
+Version: 1.0.1-2
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 8
+Priority: optional
+Section: utils
+Filename: pool/main/m/mountiso/mountiso_1.0.1-2_all.deb
+Size: 3642
+SHA256: a6ba897779227dd351c1ead6a23db4000c56d9bf8a3e7c906bf4c1bc079668c5
+SHA1: a6f84d0bd39d28fbbff919dea81de65d411bb5a3
+MD5sum: a6b2079d46ce0db54026009f4f02a4a6
+Description: Sets up and performs mounting of ISO files by non-root user
+
+Package: mplayerstart
+Version: 1.4.1-1
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 28
+Depends: mplayer, zenity
+Suggests: alsa-utils
+Priority: optional
+Section: utils
+Filename: pool/main/m/mplayerstart/mplayerstart_1.4.1-1_all.deb
+Size: 6760
+SHA256: 2492b3c249681694a2a4dba16c7d40b17212fb55fab076fda27e6276bdcfa51d
+SHA1: 8ff06bfa7215a17dcd5c0f5420a26a5071f63ea2
+MD5sum: 429f369364993a49a83f77873c498dd6
+Description: Wrapper script for mplayer which adds resumable playback
+ mplayerstart is a wrapper script for mplayer - it adds the ability to
+ resume video and audio playback from a saved position, send video output
+ to another display, disable the screensaver during playback (X, KDE3, KDE4,
+ and Gnome screensavers), and restore volume levels when resuming.
+
+Package: pcmanfm-mod
+Version: 1.2.4-1
+Architecture: i386
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 1724
+Depends: dbus, desktop-file-utils, libc6, libcairo2, libdbus-1-3, libglib2.0-0, libgtk2.0-0, libgdk-pixbuf2.0-0, libpango1.0-0, libstartup-notification0, libx11-6, shared-mime-info, gamin | fam, libfam0, hal, libhal-storage1, libhal1, libdbus-glib-1-2
+Recommends: gnome-icon-theme
+Suggests: ktsuss, gksu
+Conflicts: pcmanfm-mod-nohal
+Homepage: http://igurublog.wordpress.com/downloads/mod-pcmanfm/
+Priority: optional
+Section: utils
+Filename: pool/main/p/pcmanfm-mod/pcmanfm-mod_1.2.4-1_i386.deb
+Size: 573196
+SHA256: e6b6aec55733c5f56f2ac55de6cd40684cbd66483077b95b8ca427de8b454cb1
+SHA1: 705eb8916d46b7a7af6860b11c9c228c4495fe5b
+MD5sum: 9f39edcab476a209e74e80367709e3e5
+Description: A modified version of the legacy PCMan File Manager v0.5.2
+ PCManFM-Mod adds user-definable commands, other features, and important
+ bugfixes to the legacy version. This version installs as pcmanfm-mod and will
+ run independently of other versions of pcmanfm. This legacy version is still
+ desired by some due to more stability than the newer v0.9 rewrite in progress,
+ less Gnome dependencies, and the optional use of hal rather than gnome-vfs
+ for mounting.
+
+Package: pcmanfm-mod-nohal
+Version: 1.2.4-1
+Architecture: i386
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 1699
+Depends: dbus, desktop-file-utils, libc6, libcairo2, libdbus-1-3, libglib2.0-0, libgtk2.0-0, libgdk-pixbuf2.0-0, libpango1.0-0, libstartup-notification0, libx11-6, shared-mime-info, gamin | fam, libfam0
+Recommends: gnome-icon-theme
+Suggests: ktsuss, gksu
+Conflicts: pcmanfm-mod
+Homepage: http://igurublog.wordpress.com/downloads/mod-pcmanfm/
+Priority: optional
+Section: utils
+Filename: pool/main/p/pcmanfm-mod-nohal/pcmanfm-mod-nohal_1.2.4-1_i386.deb
+Size: 561690
+SHA256: c6f64443f33332b551d626adb275286289a681ac5bc180e207c37fc150fa5d84
+SHA1: a50e2e5c4d517bf80c54487821fd556f344c3083
+MD5sum: 055bcefa2585daa1105f5b822adf11f9
+Description: A modified version of the legacy PCMan File Manager v0.5.2
+ PCManFM-Mod adds user-definable commands, other features, and important
+ bugfixes to the legacy version. This version installs as pcmanfm-mod and will
+ run independently of other versions of pcmanfm.  This pcmanfm-mod-nohal
+ package is built with --disable-hal so hal is not required.  Mounting
+ features will be disabled - consider using devmon for automounting.
+
+Package: permz
+Version: 1.0.1-1
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 20
+Depends: zenity, gksu
+Suggests: sudo
+Priority: optional
+Section: utils
+Filename: pool/main/p/permz/permz_1.0.1-1_all.deb
+Size: 4318
+SHA256: d85f42a76226993cc5d344904887983bcb2880c402687f39727c939d975dd01f
+SHA1: 3f821265ae3e7100b6f687150bbe5a24620bd122
+MD5sum: 36f91ee12e62271b1cb74b654e52b651
+Description: Presents a menu for quickly changing file permissions/ownership
+ permz presents a GUI menu which allows you to quickly change file
+ permissions and ownership as a normal user or as root, and delete files as
+ root. permz is designed to be integrated into any file manager.
+
+Package: repic
+Version: 1.1.1-1
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 24
+Depends: imagemagick, jhead, zenity
+Priority: optional
+Section: utils
+Filename: pool/main/r/repic/repic_1.1.1-1_all.deb
+Size: 4440
+SHA256: aa83c8757b2d3c89aa1ed6d57a430cbf1bfc51d612c4c22f4363112d9e4b4252
+SHA1: eca266f2513a0aad55218aac74d3b1e5919fb4a5
+MD5sum: 7d333da5037782c2c2b51e8e02376301
+Description: Resizes and rotates JPEGs, and creates Claws and Kmail email
+ repic resizes one or more JPEG files on the command line, and can also
+ create an email message in Claws or KMail with the resized images attached.
+
+Package: ripdvd
+Version: 1.0.0-1
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 16
+Depends: mplayer, libdvdcss2
+Priority: optional
+Section: utils
+Filename: pool/main/r/ripdvd/ripdvd_1.0.0-1_all.deb
+Size: 3068
+SHA256: 41ac357432961ec5572ddb95edbdd58d6583c23aee9ab3941f6018d4cc4e9597
+SHA1: d0687c9a8b2a146d80a424f3818494e1494b5429
+MD5sum: 511bb5b1380e6092ede43bcaefa04e70
+Description: Copies the titles on a DVD
+ ripdvd uses mplayer to copy the titles on a DVD to your hard drive or other
+ device. The titles are saved as VOB (MPEG) files which can be played with
+ any video player.
+
+Package: rmdupe
+Version: 1.0.3-1
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 24
+Priority: optional
+Section: utils
+Filename: pool/main/r/rmdupe/rmdupe_1.0.3-1_all.deb
+Size: 4960
+SHA256: 1124e54cfd7c4fe4d542de9e7b950fce2f48189bd46b964f5fab1a54c22efd6e
+SHA1: 94e936becb7e1b067cce0c62bf6ed376ecda84fc
+MD5sum: cac3c0123335772faa4f0c658b3e7de6
+Description: Removes duplicate files from specified folders
+ rmdupe uses standard linux commands to search within specified folders for
+ duplicate files, regardless of filename or extension. rmdupe can also
+ check duplicates against one or more reference folders, can trash files
+ instead of removing them, allows for a custom removal command, and can
+ limit its search to files of specified size.
+
+Package: sandfox
+Version: 1.1.3-1
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 55
+Depends: inotify-tools, lsof
+Priority: optional
+Section: utils
+Filename: pool/main/s/sandfox/sandfox_1.1.3-1_all.deb
+Size: 14366
+SHA256: d06ab2db951db56500a15226ea5cea0db6f5463a63cb28f2a718f56fbe0062bd
+SHA1: eabb70abf0adf904d3ac8cf1da69d78aa7e76196
+MD5sum: 08e62b7ed5ac67ed30e44e369fc4ae75
+Description: Runs Firefox and other apps in a filesystem sandbox
+ Sandfox runs programs within sandboxes. Programs and their child processes,
+ like Firefox plugins, Flash, and Java, are only able to access files within
+ the sandbox. Sandfox supports the use of custom profiles and includes
+ default profiles for Firefox, Skype, and Google-Earth.
+
+Package: sedname
+Version: 1.0.1-1
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 20
+Priority: optional
+Section: utils
+Filename: pool/main/s/sedname/sedname_1.0.1-1_all.deb
+Size: 3338
+SHA256: 6868b65143ca54ee8c160fa954530f253ff1cfa8908c79e6d6bcd7caf873f7af
+SHA1: 038adbf2b79bc7f10afb45311267f1ecfa18a91f
+MD5sum: 839be6c1a36b789c2b18bd8e97a8ec35
+Description: Batch-renames files using a sed script
+ sedname passes filenames through the sed stream editor using a sed script
+ you specify, and renames the files to the result. If you are familiar with
+ sed, sedname provides a familiar way to rename batches of files quickly. In
+ addition, sedname can insert sequential numbers into the filenames to make
+ them unique. It also supports a simulation mode.
+
+Package: spacefm
+Version: 0.7.4-1
+Architecture: i386
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 2783
+Depends: dbus, desktop-file-utils, bash, libc6, libcairo2, libdbus-1-3, libglib2.0-0, libgtk2.0-0 (>= 2.24), libgdk-pixbuf2.0-0, libpango1.0-0, libstartup-notification0, libx11-6, shared-mime-info
+Suggests: ktsuss, gksu, wget, udisks, eject, lsof
+Conflicts: spacefm-hal
+Homepage: http://ignorantguru.github.com/spacefm/
+Priority: optional
+Section: utils
+Filename: pool/main/s/spacefm/spacefm_0.7.4-1_i386.deb
+Size: 877322
+SHA256: 56539e6a044f6d6bd716dc7c5eb45b182351362fcc809f181bda19d0534f38d8
+SHA1: 3b6ce1aa6ef760abb1f4abc5d4705e7c52d930cc
+MD5sum: a0d7636774263c6171fd72ff1b7c00d8
+Description: A multi-panel tabbed file manager with built-in VFS, optional
+ udisks-based device manager, customizable menu system, and bash integration.
+
+Package: spacefm-hal
+Version: 0.7.4-1
+Architecture: i386
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 2771
+Depends: dbus, desktop-file-utils, bash, libc6, libcairo2, libdbus-1-3, libglib2.0-0, libgtk2.0-0 (>= 2.24), libgdk-pixbuf2.0-0, libpango1.0-0, libstartup-notification0, libx11-6, shared-mime-info, hal, libhal-storage1, libhal1, libdbus-glib-1-2
+Suggests: ktsuss, gksu, wget, udisks, eject, lsof
+Conflicts: spacefm
+Homepage: http://ignorantguru.github.com/spacefm/
+Priority: optional
+Section: utils
+Filename: pool/main/s/spacefm-hal/spacefm-hal_0.7.4-1_i386.deb
+Size: 870660
+SHA256: efad437891ee6a55d20cd705d01929a303f8fcfa133e37e485c2b6f1151e43cb
+SHA1: 8c1be4f0684ae198084d87b1daf33767d6be3ca2
+MD5sum: b53d4f656c5a91a4023a3d7bf1aa8d10
+Description: A multi-panel tabbed file manager with built-in VFS, optional
+ udisks-based device manager*, customizable menu system, and bash integration.
+ * This package is built with deprecated HAL support in place of udisks (device
+ manager functions are limited).
+
+Package: webpics
+Version: 1.0.0-1
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 136
+Depends: imagemagick, jhead
+Priority: optional
+Section: utils
+Filename: pool/main/w/webpics/webpics_1.0.0-1_all.deb
+Size: 77610
+SHA256: 80608dfc5853d1adeaead7606ce766e1251c07407667bac75a2ac3a2043561ab
+SHA1: 6a3cf46c535d96e06e65b86ba755fbbe079fa4c7
+MD5sum: 060e2535ac1c2a8e7f9b3f1069a90cd9
+Description: Creates a javascript website from a folder of pics
+ webpics takes a folder of JPG image files and creates a complete website,
+ including both javascript and non-javascript picture viewers. The javascript
+ viewer includes a slideshow capability.
+
+Package: xtract
+Version: 1.1.0-2
+Architecture: all
+Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
+Installed-Size: 17
+Suggests: zenity, xz-utils, unzip, bzip2, p7zip, unrar, sudo, gksu
+Priority: optional
+Section: utils
+Filename: pool/main/x/xtract/xtract_1.1.0-2_all.deb
+Size: 5800
+SHA256: 103f37b71c3a6a7829fb04fbae3f0450205b688162472a41b2a6f0a5d5323bc7
+SHA1: a84591f56cd6d1bcd31da9c9c10e1cd98c5c83f6
+MD5sum: b6364e06d9683dab492c72f947c68565
+Description: Decompresses and extracts archives in your file manager
+ Designed for file manager integration, Xtract decompresses and extracts
+ archives, and can also list archive contents. By default, an archive is
+ extracted into a subfolder of the same name. Or, Xtract can prompt you
+ for the destination or destination parent.
+

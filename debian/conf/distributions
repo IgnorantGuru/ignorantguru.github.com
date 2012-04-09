@@ -1,0 +1,6 @@
+Origin: IgnorantGuru PPA
+Suite: unstable
+Codename: unstable
+Architectures: i386 amd64 source
+Components: main
+Description: IgnorantGuru PPA http://igurublog.wordpress.com/downloads/ppa/
