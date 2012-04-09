@@ -231,43 +231,45 @@ Description: Batch-renames files using a sed script
 
 Package: spacefm
 Version: 0.7.4-1
-Architecture: amd64
+Architecture: all
 Maintainer: IgnorantGuru <ignorantguru@gmx.com>
-Installed-Size: 2766
-Depends: dbus, desktop-file-utils, bash, libc6, libcairo2, libdbus-1-3, libglib2.0-0, libgtk2.0-0 (>= 2.24), libgdk-pixbuf2.0-0, libpango1.0-0, libstartup-notification0, libx11-6, shared-mime-info
-Suggests: ktsuss, gksu, wget, udisks, eject, lsof
+Installed-Size: 984
+Pre-Depends: autotools-dev, bash, dbus, desktop-file-utils, build-essential, libc6, libcairo2, libdbus-1-3, libglib2.0-0, libgtk2.0-0 (>= 2.24), libpango1.0-0, libstartup-notification0, libx11-6, shared-mime-info, intltool, pkg-config, libgtk2.0-dev (>= 2.24), libglib2.0-dev, fakeroot, libstartup-notification0-dev, libdbus-1-dev, libgdk-pixbuf2.0-0, libgdk-pixbuf2.0-dev, libudev0 (>= 143), libudev-dev
+Suggests: eject, lsof, wget, ktsuss, gksu, udisks
 Conflicts: spacefm-hal
 Homepage: http://ignorantguru.github.com/spacefm/
 Priority: optional
 Section: utils
-Filename: pool/main/s/spacefm/spacefm_0.7.4-1_amd64.deb
-Size: 879548
-SHA256: 743675c4dad65a52ece8f097b5fd4ca398c5d2eb9bd56085db2adb8abf6aa634
-SHA1: acfe18d0b79326b6d031c56b724e1c60c653ba96
-MD5sum: 41aac4f96b155dc0d577fc3df06f48d2
-Description: A multi-panel tabbed file manager with built-in VFS, optional
- udisks-based device manager, customizable menu system, and bash integration.
+Filename: pool/main/s/spacefm/spacefm_0.7.4-1_all.deb
+Size: 962182
+SHA256: 3eeb515cdb828b836c4f1f378bf23087e13d565000e0cce0f4c5a8360001e662
+SHA1: 31d0364d83fccc9591c4a5aa83750a406b9c18ae
+MD5sum: 26f09438589bf37bf429c3b7d1c8f7e3
+Description: A multi-panel tabbed file manager with built-in VFS, udev-based
+ device manager, customizable menu system, and bash integration.
+ NOTE:  This package automatically builds and installs SpaceFM from source.
 
 Package: spacefm-hal
 Version: 0.7.4-1
-Architecture: amd64
+Architecture: all
 Maintainer: IgnorantGuru <ignorantguru@gmx.com>
-Installed-Size: 2760
-Depends: dbus, desktop-file-utils, bash, libc6, libcairo2, libdbus-1-3, libglib2.0-0, libgtk2.0-0 (>= 2.24), libgdk-pixbuf2.0-0, libpango1.0-0, libstartup-notification0, libx11-6, shared-mime-info, hal, libhal-storage1, libhal1, libdbus-glib-1-2
-Suggests: ktsuss, gksu, wget, udisks, eject, lsof
+Installed-Size: 984
+Pre-Depends: autotools-dev, bash, dbus, desktop-file-utils, build-essential, libc6, libcairo2, libdbus-1-3, libglib2.0-0, libgtk2.0-0 (>= 2.24), libpango1.0-0, libstartup-notification0, libx11-6, shared-mime-info, intltool, pkg-config, libgtk2.0-dev (>= 2.24), libglib2.0-dev, fakeroot, libstartup-notification0-dev, libdbus-1-dev, libgdk-pixbuf2.0-0, libgdk-pixbuf2.0-dev, hal, libhal-dev, libhal-storage-dev, libdbus-glib-1-dev, libhal-storage1, libhal1, libdbus-glib-1-2
+Suggests: eject, lsof, wget, ktsuss, gksu
 Conflicts: spacefm
 Homepage: http://ignorantguru.github.com/spacefm/
 Priority: optional
 Section: utils
-Filename: pool/main/s/spacefm-hal/spacefm-hal_0.7.4-1_amd64.deb
-Size: 874428
-SHA256: 2124a0537f62bac8dba8eb802a405be375235fe7d6583faa4c45a94a248f549f
-SHA1: 3416533d61882495d0cab1eed5dae20702eaf614
-MD5sum: e4552761ad0754127f7dcd6111538be3
-Description: A multi-panel tabbed file manager with built-in VFS, optional
- udisks-based device manager*, customizable menu system, and bash integration.
- * This package is built with deprecated HAL support in place of udisks (device
- manager functions are limited).
+Filename: pool/main/s/spacefm-hal/spacefm-hal_0.7.4-1_all.deb
+Size: 962298
+SHA256: beed8d8e55cc435e16b4a09aa554cfa921748b4db8ff24b3697c4654649aedfa
+SHA1: b9cacaf60fd7401117def116650c62229e2aff77
+MD5sum: 28d4badc99ccf2dd6ecd1000921b0061
+Description: A multi-panel tabbed file manager with built-in VFS, udev-based
+ device manager*, customizable menu system, and bash integration.
+ * This package is built with deprecated HAL support instead of udev - device
+ manager functions are very limited.
+ NOTE:  This package automatically builds and installs SpaceFM from source.
 
 Package: webpics
 Version: 1.0.0-1
