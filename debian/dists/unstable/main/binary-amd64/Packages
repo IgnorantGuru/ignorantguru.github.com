@@ -241,10 +241,10 @@ Homepage: http://ignorantguru.github.com/spacefm/
 Priority: optional
 Section: utils
 Filename: pool/main/s/spacefm/spacefm_0.7.5-1_all.deb
-Size: 980344
-SHA256: 4d5643a0afb57d394e8a7a3877c17340c95482baeb4714bf2778c67eda891041
-SHA1: 6d8ee9ab8f69004baa3009e35acffdce84ba9241
-MD5sum: 637089a147c0e37c80ef44a15afc9795
+Size: 980364
+SHA256: 6685f724fbcb98b926a698a65f566740ff41a43cdab762ddaf47631f52e91ae0
+SHA1: d3f037cc05bf791743e1a6dc43dd039201808e93
+MD5sum: 2dd540b4cdceec4fccc6fea31af9f7f8
 Description: A multi-panel tabbed file manager with built-in VFS, udev-based
  device manager, customizable menu system, and bash integration.
  NOTE:  This package automatically builds and installs SpaceFM from source.
@@ -261,10 +261,10 @@ Homepage: http://ignorantguru.github.com/spacefm/
 Priority: optional
 Section: utils
 Filename: pool/main/s/spacefm-hal/spacefm-hal_0.7.5-1_all.deb
-Size: 980464
-SHA256: 729ed99efd5c466292d45cc678bf7d797bf85062823cc8375586c298532a8169
-SHA1: 1837d4e3b73aa67f794761b1f423f7a958376a1f
-MD5sum: a490fc95ff4eafa0daf05209b788def2
+Size: 980466
+SHA256: aabba6a044ad6b20336fefd16ca5cdb6f8cc44475c230f63aefff63af43e596a
+SHA1: 870b6f7078dbca8143d66b823cec7e30afae47b3
+MD5sum: fcbfe094cb9d78787c2cb5ed899039e4
 Description: A multi-panel tabbed file manager with built-in VFS, udev-based
  device manager*, customizable menu system, and bash integration.
  * This package is built with deprecated HAL support instead of udev - device
