@@ -273,6 +273,25 @@ Description: A multi-panel tabbed file manager with built-in VFS, udev-based
  NOTE:  This package automatically builds and installs SpaceFM from source.
  /tmp must NOT be mounted noexec.
 
+Package: udevil
+Version: 0.2.0-1
+Architecture: all
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 336
+Pre-Depends: autotools-dev, build-essential, libc6, libglib2.0-0, intltool, pkg-config, libglib2.0-dev, fakeroot, libudev0 (>= 143), libudev-dev
+Homepage: http://ignorantguru.github.com/udevil/
+Priority: optional
+Section: utils
+Filename: pool/main/u/udevil/udevil_0.2.0-1_all.deb
+Size: 288922
+SHA256: 2fd3731ea08e8ccdd593974803a125fa204a4605fbf45120a9d6f033d21402bb
+SHA1: 7f2ee9ed8ac21091c6c61adf52db539c03640e6a
+MD5sum: bea08c008df43fd3599654c651823837
+Description: Mounts and unmounts optical and removable devices without a
+ password (set suid), shows device info, monitors device changes.
+ NOTE:  This package automatically builds and installs udevil from source.
+ /tmp must NOT be mounted noexec during installation.
+
 Package: webpics
 Version: 1.0.0-1
 Architecture: all
