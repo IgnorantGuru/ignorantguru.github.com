@@ -1,22 +1,3 @@
-Package: devmon
-Version: 1.0.5-1
-Architecture: all
-Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
-Installed-Size: 40
-Depends: udisks, bash (>= 4), zenity
-Priority: optional
-Section: utils
-Filename: pool/main/d/devmon/devmon_1.0.5-1_all.deb
-Size: 9428
-SHA256: 0e38a093c4ef1caf31215080f74ed66fa87e35f411922be294f7076447e96b1f
-SHA1: 0d9a145afdc406f5fad91970b51dc5f4637e8c32
-MD5sum: 1ba8ca21e2250979730f6b2e78391eb6
-Description: Automounts optical and removable drives using udisks
- devmon is a configuration-less bash wrapper script for udisks which
- automounts optical discs and removable drives. It can also selectively
- autostart apps or execute commands after mounting, ignore specified devices
- and volume labels, and manually mount and unmount devices.
-
 Package: kscrubber
 Version: 1.2.8-1
 Architecture: all
@@ -274,21 +255,25 @@ Description: A multi-panel tabbed file manager with built-in VFS, udev-based
  /tmp must NOT be mounted noexec.
 
 Package: udevil
-Version: 0.2.0-1
+Version: 0.2.1-1
 Architecture: all
 Maintainer: IgnorantGuru <ignorantguru@gmx.com>
-Installed-Size: 336
+Installed-Size: 651
 Pre-Depends: autotools-dev, build-essential, libc6, libglib2.0-0, intltool, pkg-config, libglib2.0-dev, fakeroot, libudev0 (>= 143), libudev-dev
+Suggests: eject
+Conflicts: devmon
+Provides: devmon
 Homepage: http://ignorantguru.github.com/udevil/
 Priority: optional
 Section: utils
-Filename: pool/main/u/udevil/udevil_0.2.0-1_all.deb
-Size: 288922
-SHA256: 2fd3731ea08e8ccdd593974803a125fa204a4605fbf45120a9d6f033d21402bb
-SHA1: 7f2ee9ed8ac21091c6c61adf52db539c03640e6a
-MD5sum: bea08c008df43fd3599654c651823837
+Filename: pool/main/u/udevil/udevil_0.2.1-1_all.deb
+Size: 611288
+SHA256: 89c6e4b23427f4a8b94acd2301e0241ce3c85a965ec384d595c2e57374bb7487
+SHA1: cdcd0c0ea465c3c4f8c0085a0f7173e0b5dc7ec6
+MD5sum: a0f717b1057b4350a5abe496d37e21c2
 Description: Mounts and unmounts optical and removable devices without a
- password (set suid), shows device info, monitors device changes.
+ password (set suid), shows device info, monitors device changes.  Includes
+ the devmon automounting script.
  NOTE:  This package automatically builds and installs udevil from source.
  /tmp must NOT be mounted noexec during installation.
 
