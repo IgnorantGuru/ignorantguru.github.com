@@ -1,0 +1,1047 @@
+Dec 12, 2012
+From IgnorantGuru re http://igurublog.wordpress.com/2012/12/10/spacefm-development-notes/#comment-18170:
+
+The following email exchange contains some issues I have with zuluMount's security protocols and some potential exploits, and is being published in its entirety to date at mhogomchungu's request so that users can evaluate the issues.  I may not have time to discuss this further in detail so please don't interpret any further lack of response on my part as my being satisfied that these issues are resolved.
+
+Summarizing in advance, my concerns include:
+
+1) zuluMount's use of fstab as determining what devices are system vs external is inaccurate, susceptible to inadvertant configuration issues, and allows unrecognized devices to be un/mounted, rather than defaulting to disallow.  Example problem:  I typically keep my Windows partition commented out.  Merely installing zulumount would mean that users (or malicious software or intruders acting from a user account), could mount this partition and make root-level changes.  Another example:  If I comment out a user-permitted device in fstab to render it inaccessible to users, in zuluMount this means I have given users unlimited permissions.  This approach is also susceptible to fstab parsing issues or varying device identification methods in fstab which inadvertantly give users access to a system device - zuluMount gives unrestricted access to devices it can find no information about (it should disallow if determination fails, not allow).  It would be more appropriate for zuluMount to use sysfs or udev info for the determination of what devices are external and mountable.
+
+2) As a compatibility note with udevil, merely installing zuluMount renders much of udevil's security checks irrelevent, since zuluMount is far more liberal in its policies.  This is merely an issue if I recommend zuluMount's use alongside udevil or in combination with it, reflecting their different approaches to security.
+
+3) zuluMount uses permissions on device files (eg /dev/sda1) to determine user access.  This encourages or requires users to have direct write access to a device, which is not generally advisable.  It also is susceptible to a non-secure ootb configuration since distro defaults in this area are not consistent or reliable.  I view this as an overly complex way to control permissions which is easily or inadvertantly susceptible to misconfiguration.
+
+4) zuluMount uses an implementation of realpath for canonicalization which is known to have security-related issues (this also affects #1 above as a device symlink may fool zuluMount into allowing access).
+
+5) zuluMount places no restriction on what filesystem types a user may mount, and provides no special handling for types which can introduce security issues.  This introduces known exploits (potential loading of a malicious kernel module has been cited, and other potential issues).   Note that no other mount solution allows such unrestricted use of mount.
+
+6) zuluMount allows ANY mount options to be included by the user, and enforces no required mount options (including nosuid).  This open multiple root exploits and escalation issues.  Note that no other mount solution allows such unrestricted use of mount options.
+
+7) zuluMount allows the user to use any accessible mount point without restriction.  While this may be safe in some circumstances, a review should be done of the potential methods of misuse since this is irregular.  In terms of compatibility and traditional directory use, zuluMount does not support use of the common /media or /run/media directories.
+
+8) zuluMount runs with full root priviledges even when not required.  It should drop root privileges, restoring them only when it needs to mount, etc.
+
+9) Based on lack of developer response (code not reviewed), it appears zuluMount does not sanitize root's inherited environment, meaning various root exploits involving environment variables may be introduced.
+
+
+This may not represent a comprehensive list of all issues, and I did NO code review at this time.
+
+Overall, at present I consider zuluMount far too lax in allowing users to access devices, and in protecting the user's system from exploits and escalation issues.  Because zuluMount is run suid, this means merely installing zuluMount opens these potential issues.  Overall zuluMount looks like a useful tool so I hope these are addressed.  It may be better to use udisks or udevil for device mounting rather than handling this internally, since there are many potential and changing issues involved, and zuluMount does not appear to have a comprehensive approach to security at this level.
+
+
+The following email exchanges discuss the above issues in greater detail.  
+
+
+===============================================================================
+From: IgnorantGuru
+To: mhogomchungu
+Cc: OmegaPhil
+Subject: zuluMount
+Date: Tue, 11 Dec 2012
+
+Hi, thanks for introducing me to your zulumount - you're doing some great work there in an area that needs independent tools!
+
+I'm ccing spacefm contributor OmegaPhil on this email so he can track this with me and maybe check some of the details and background on your project.
+
+I'm a little concerned about the security protocols.   eg your definition of system device as one appearing in fstab.  This seems to imply that commenting out a system device in fstab would leave it vulnerable to mounting and tampering by a normal user.  It may also be vulnerable to the device having an alias, being symlinked, etc. - do you canonicalize paths, and if so, what function do you use?  I suppose you can handle this somewhat with the file permissions, but it seems to be a much more general approach to security than udevil takes.  This would mean that just installing zulumount would render many of udevil's security checks useless since a user could bypass them with zulumount.  See <a href="http://ignorantguru.github.com/udevil/udevil.conf.txt">udevil.conf</a> for some references.
+
+Another example is the fact that zulumount doesn't have any limitation on what filesystems it mounts (at least from the docs).  This might lead to a malicious kernel module being loaded, for example.  I think a little more fine-grained control in some areas would be useful, especially running suid without polkit involved.  mount is a powerful program to gives users access to, even limited somewhat by file permissions.  While security may be suitable for some simple setups, it may introduce large problems on others.  Also, how do you control what mount points may be used, and the permissions on them, as well as on the various filesystem types?  Is the user simply allowed to do everything root can do in mount, based on file access only?
+
+But those are just my initial thoughts from looking at the docs only.  These issues would be for users to decide for themselves at any rate, though I would advise them on any vulnerabilities I'm concerned about.
+
+In general I love flexible tools like zulumount - udevil is actually quite similar, except it spends most of its time doing security checks, and it looks up udev info on a device to learn more about it.  But determining some things about a device is an imperfect science - eg the definition of internal.  udevil examines the bus type, etc, code stolen from udisks, to keep the definition more narrow.  But it's all very hackish.
+
+At any rate, I'm interested in your analysis of the security situation.  Typically users don't have direct write access to device nodes, for example, and I don't believe they should.  It would allow them to write directly to a device with dd and override any permissions on the filesystem.  So I'm not convinced by what I see so far that zulumount is taking security seriously, and that's a high priority with me.  Especially in software handling encryption.  Knowing how careless some distros are with the permissions on device nodes, I would be uneasy recommending it at present.
+
+You can post a report on the encrypted device mount issue <a href="https://github.com/IgnorantGuru/spacefm/issues">here</a>.  Note that if the volume is attached to a loop device, the loop device will show as mounted.  I'm not sure what kind of setup you're using so details to reproduce will be helpful.
+
+SpaceFM has grown quickly and my time is limited, so you may need to wait in line for awhile.  :)  But I think zulu looks promising.
+
+
+
+===============================================================================
+From: mhogomchungu
+To: IgnorantGuru
+Cc: OmegaPhil
+Subject: Re: zuluMount
+Date: Tue, 11 Dec 2012
+
+On Tue, Dec 11, 2012 at 6:54 PM, IgnorantGuru <ignorantguru@gmx.com> wrote:
+
+> Hi, thanks for introducing me to your zulumount - you're doing some great
+> work there in an area that needs independent tools!
+>
+> I'm ccing spacefm contributor OmegaPhil on this email so he can track this
+> with me and maybe check some of the details and background on your project.
+>
+> I'm a little concerned about the security protocols.   eg your definition
+> of system device as one appearing in fstab.  This seems to imply that
+> commenting out a system device in fstab would leave it vulnerable to
+> mounting and tampering by a normal user.  
+
+
+This is going to be a long email and my apologies in advance for long and
+sometimes unnecessary explanations and for all grammatical erros in these
+long explanations.
+
+The definition of a "system partition" is one with an entry in
+/etc/fstab,/etc/crypttab and /etc/zulucrypttab.
+If you want a device to be considered as a system device without having it
+in the first two mentioned location.The third one is the place to add
+it.The third place is specifically added to account for the fact that
+having an entry to be considered in the first two may interfere with other
+tools that may act automatically on entries they find there.
+
+All paths give by user pass through functions given by this source file:
+http://code.google.com/p/zulucrypt/source/browse/zuluCrypt-cli/bin/security.c
+
+A normal user must have reading permission to a path they provide if they
+seek to access it in read mode and must have writing access to all devices
+they provide if they seek to access them in write mode.This is true of
+folders and devices in files( ie devices whose real path does not start
+with "/dev/" )
+
+If the device has its real address starting with "/dev/" and it is found to
+be a system device,then a user must be a member of "zulucrypt" group if
+they want to access it in read only mode and must be a member of
+zulucrypt-write group if they want to access it in read write mode.
+
+A device that starts with "/dev/" that is not found to me a system
+partition is allowed to be accessed without any restrictions as the device
+is assumed to a pluggable device and a user can simply plug it in to
+another system where they have root access and do what they wish with it.
+
+If a user want their usb pen drive for example to be used as a system
+partition,for example to prevent accidental formating when creating an
+encrypted container using zulucrypt,then then can add the device in the
+/etc/zulucrypttab file using the device UUID.
+
+Only a root user can create encrypted partitions,take or restore luks
+header backup in system partitions.
+
+ It may also be vulnerable to the device having an alias, being symlinked,
+> etc. - do you canonicalize paths, and if so, what function do you use?  
+
+
+Yes,one of the first thing the tool does is to call realpath(device,NULL)
+where "device" is the path given by user.The command does two things,it
+makes sure the path is valid and and it also make it i am not dealing with
+symbolic links.As far as i know,"realpath" with catch any attempt to
+deceive using symbolic links or relative paths.I always deal with paths
+after they pass "realpath" command.
+
+
+
+>  I suppose you can handle this somewhat with the file permissions, but it
+> seems to be a much more general approach to security than udevil takes.
+>  This would mean that just installing zulumount would render many of
+> udevil's security checks useless since a user could bypass them with
+> zulumount.  See <a href="
+> http://ignorantguru.github.comcanonicalize/udevil/udevil.conf.txt<http://ignorantguru.github.com/udevil/udevil.conf.txt>">udevil.conf</a>
+> for some references.
+>
+> I have already seen the config file of your program and already took the  
+wisdom it provides
+
+let go through it.
+
+allowed file system types:
+I do not see why i should limit this, at the end of the day, the mount()
+command is the one doing all the mounts and it is the one responsible for
+enforcing file system security.If the distro ships with the file system and
+user want to use it, then who am i to stand in their way.If a file system
+is known to be insecure,the distro should remove it for their system. Do
+you know of any insecured file system that is not to be used? i dont know
+any.
+
+allowed_users:
+allowed_groups"
+If the device is a system device,then they must be members of zulucrypt
+and/or zulucrypt-write group to access them as i explained above.I do not
+want to impose any restrictions on pluggable devices rationale being they
+can simply take them to another computer where they have root access and do
+as they wish with them.
+
+allowed_media_dirs.
+By default and in my opinion,preferred location, a mount point folder is
+created in a user's home directory.If they choose to mount it at another
+location.They must have writing access to where the mount folder is to be
+created.This makes sure a normal user can use mount points only where they
+have write access to. I do not see why i should impose my will on where
+users wish to mount their devices.Since a normal user realistically has
+writing access only in their home directory,realistically their home
+directory is the only place they can mount their devices so the "freedom"
+to choose the mount point is not that wide.
+
+allowed_device:
+This one is covered above,I support mounting of file systems residing in
+files.If a path does not start with "/dev/" then it is assume to be a file
+device and a user is checked to make sure they can access it with their
+normal permissions. If the device is located in "/dev/" then it is checked
+if it starts with "/dev/dm-", if it is then it is rejected because i
+currently do not support lvm volumes.If it start with "/dev/" but not
+"/dev/dm-" then it is checked if it is system device and if it is a user is
+checked if they are in one of the two groups mentioned above.
+
+allowed_internal_devices:
+I currently do not support this.Havent found a use case for it.If i am to
+implement this,it will probably be through group system.
+
+forbidden_devices:
+I currently do not support this.Havent found a use case for it.
+
+I currently dont do network mount so network permissions are not applicable.
+
+allowed_files:
+If a normal user has access to a file with a file system in it,i do not see
+why they should not be allowed to mount it.If they are not allowed to,then
+proper permissions should be set on the file to prevent them and zulumount
+will respect those permissions.
+
+A have encrypted volumes files owned by root and normal users have read
+access only.Permissions on those files will prevent normal users to open
+them in read/write mode.Only read more.
+
+These are suid programs, i recognize the seriousness of them and i take
+oversights that may lead to privilege escallations very seriously. If you
+look at the code, you will see that each function that return a value is
+checked to make sure it return an expected value,if you follow code
+paths,you will know there are a lot of checks that are done repeatedly,If
+functions,no matter how deep it is does not make any assumptions that those
+that came before them have done their due diligence is checking for
+parameters.All parameters get checks at every turn.
+
+
+> Another example is the fact that zulumount doesn't have any limitation on
+> what filesystems it mounts (at least from the docs).  This might lead to a
+> malicious kernel module being loaded  
+
+
+If there is a malicious kernel file system module out there,then it should
+be fixed, or removed.What if it is fixed on one distro and vurnerable in
+another. Simply blacklisting it for all seem overly reaching. I may be
+naive in this,will change when i see a compelling reason to do so. Do you
+know any vulnerable file system floating around?
+
+
+> , for example.  I think a little more fine-grained control in some areas
+> would be useful, especially running suid without polkit involved.  mount is
+> a powerful program to gives users access to, even limited somewhat by file
+> permissions.  While security may be suitable for some simple setups, it may
+> introduce large problems on others.  Also, how do you control what mount
+> points may be used, and the permissions on them, as well as on the various
+> filesystem types?  Is the user simply allowed to do everything root can do
+> in mount, based on file access only?
+>
+> I think various pieces above answered this part.But to repeat  
+A normal user wishing to mount a device must have writing access to the
+folder where the mount point is to be created.Realistically,this means they
+can only mount is in their home directories.
+
+If a device has an entry in fstab,then it is considered a system device,a
+normal user can mount it only if it has "user" or "users" option. I do not
+record who mounted what so when it comes to unmounting, a normal user can
+unmount a mounted device only if they have access to where the mount folder
+is located.This means if a user has a mount point in their home
+directory,only the user or root user can unmount it.
+
+I also currently do not limit what file system option a user can use.I have
+so far not seen a compelling reason to arbitrarily decide on this but i may
+be uninformed and i am still looking into this,if you know of any links
+that talk of dangers of allowing all supported file system options to be
+used,then please send it to me.
+
+But those are just my initial thoughts from looking at the docs only.
+>  These issues would be for users to decide for themselves at any rate,
+> though I would advise them on any vulnerabilities I'm concerned about.
+>
+> Thanks for looking into it,i recognize the dangers of suid programs and  
+thats why the FAQ is there and relatively long.Hope you wont mind if i take
+some of your questions and add them there.
+
+If you have any concern or more questions,please feel free to ask. I am
+sure i am missing something somewhere.
+
+
+> In general I love flexible tools like zulumount - udevil is actually quite
+> similar, except it spends most of its time doing security checks, and it
+> looks up udev info on a device to learn more about it.  But determining
+> some things about a device is an imperfect science - eg the definition of
+> internal.  udevil examines the bus type, etc, code stolen from udisks, to
+> keep the definition more narrow.  But it's all very hackish.
+>
+> I like it to be as open as i can make it to be while as secure as i can  
+make it to be.It is a front end to libcryptsetup and mount and it is
+largely meant to be used as a backend to other tools,thats why i wrote it
+in C with special emphasis to keep dependencies low and to get wider usage
+as a backend.
+
+
+
+> At any rate, I'm interested in your analysis of the security situation.
+>  Typically users don't have direct write access to device nodes, for
+> example, and I don't believe they should.  It would allow them to write
+> directly to a device with dd and override any permissions on the
+> filesystem.  So I'm not convinced by what I see so far that zulumount is
+> taking security seriously, and that's a high priority with me.  Especially
+> in software handling encryption.  Knowing how careless some distros are
+> with the permissions on device nodes, I would be uneasy recommending it at
+> present.
+>
+> You can post a report on the encrypted device mount issue <a href="  
+> https://github.com/IgnorantGuru/spacefm/issues">here</a>.  Note that if  
+> the volume is attached to a loop device, the loop device will show as
+> mounted.  I'm not sure what kind of setup you're using so details to
+> reproduce will be helpful.
+>
+> SpaceFM has grown quickly and my time is limited, so you may need to wait
+> in line for awhile.  :)  But I think zulu looks promising.
+>
+
+
+
+===============================================================================
+From: IgnorantGuru
+To: mhogomchungu
+Cc: OmegaPhil
+Subject: Re: zuluMount
+Date: Tue, 11 Dec 2012
+
+Hi,  Thanks for your detailed reply.  I believe I understand how you're approaching the security.  I know how it is working with suid - udevil is too, and it's necessary to carefully confine the actions of the user.  The more complex the arguments allowed, the more likely this security becomes to failure.  I do have some issues with the approaches you've taken:
+
+a) It renders many security features of udevil inoperable, in the sense that zulumount allows a much wider range of actions.
+
+b)  The way you're determining a system device is susceptible to configuration issues (see realpath notes below).  If for any reason a device is disabled in fstab, extra action is required by the user to secure it.  Thus your ootb security is questionable.  The fstab system does not err on the side of caution, but rather on a liberal policy.  Your method for determining a pluggable device is not accurate.
+
+Also please see notes below:
+
+On Tue, 11 Dec 2012 20:13:21 -0500
+".. ink .." <mhogomchungu@gmail.com> wrote:
+
+> The definition of a "system partition" is one with an entry in
+> /etc/fstab,/etc/crypttab and /etc/zulucrypttab.  
+
+I don't find this sufficient to have a whitelist for a restrictive policy.
+
+> All paths give by user pass through functions given by this source
+> file:
+> http://code.google.com/p/zulucrypt/source/browse/zuluCrypt-cli/bin/security.c  
+
+Noting I haven't looked through that in detail yet.
+
+> A normal user must have reading permission to a path they provide if
+> they seek to access it in read mode and must have writing access to
+> all devices they provide if they seek to access them in write
+> mode.This is true of folders and devices in files( ie devices whose
+> real path does not start with "/dev/" )  
+
+I don't find device node permissions should be indicative of mount permissions necessarily, as I explained in my previous email.  Also distro defaults for these may conflict with zulumount's expectations rendering loopholes.  Rather than permissions on the devices themselves, the user's group might be a better basis of restriction.
+
+> A device that starts with "/dev/" that is not found to me a system
+> partition is allowed to be accessed without any restrictions as the
+> device is assumed to a pluggable device and a user can simply plug it
+> in to another system where they have root access and do what they
+> wish with it.  
+
+This appears to me far too liberal a policy for prudent security - it invites a user gaining access to an unintended device by any number of configuration issues.  I think some examination of udev properties is in order - see udevil's or udisks's code for some approaches to this.
+
+> Yes,one of the first thing the tool does is to call
+> realpath(device,NULL) where "device" is the path given by user.The
+> command does two things,it makes sure the path is valid and and it
+> also make it i am not dealing with symbolic links.As far as i
+> know,"realpath" with catch any attempt to deceive using symbolic
+> links or relative paths.I always deal with paths after they pass
+> "realpath" command.  
+
+That's good you've taken this into consideration.  Unfortunately the standard C implementation of realpath is known to have security flaws, and its use is not recommended for security related purposes.  For this reason, mount (coreutils) uses a custom canonicalize.c which replaces realpath.  udevil also uses this same canonicalize.c for the time being, as do udisks and pmount (I think they use an older replacement there).  I found this researching some of the issues for udevil, but I don't have references on these handy.
+
+> allowed file system types:
+> I do not see why i should limit this, at the end of the day, the
+> mount() command is the one doing all the mounts and it is the one
+> responsible for enforcing file system security.If the distro ships
+> with the file system and user want to use it, then who am i to stand
+> in their way.If a file system is known to be insecure,the distro
+> should remove it for their system. Do you know of any insecured file
+> system that is not to be used? i dont know any.  
+
+This came up in some of the dev mailing lists on udisks as a concern of some security-savvy people.  I think the inference is that if a malicious module can somehow be inserted into the filesystem (not sure what the specifics are on that), then by mounting a particular fs type, the user can trigger the kernel module to be loaded, which is a very serious compromise.  Thus the general approach is to limit user mounting to filesystems within a whitelist, some of which is based on the installed filesystems in the system (iirc /etc/filesystems), and also a static set of known fs types.  (udevil also permits admins to control this via udevil.conf)
+
+]> allowed_users:
+> allowed_groups"
+> If the device is a system device,then they must be members of
+> zulucrypt and/or zulucrypt-write group to access them as i explained
+> above.I do not want to impose any restrictions on pluggable devices
+> rationale being they can simply take them to another computer where
+> they have root access and do as they wish with them.  
+
+That would be true except that your criteria for what constitutes pluggable devices does not preclude internal devices.  Again I think udev database examination is in order - fstab is not really applicable to this purpose, and parsing is prone to problems (see 'whitelist for a restrictive policy' notes above).
+
+> allowed_media_dirs.
+> By default and in my opinion,preferred location, a mount point folder
+> is created in a user's home directory.If they choose to mount it at
+> another location.They must have writing access to where the mount
+> folder is to be created.This makes sure a normal user can use mount
+> points only where they have write access to. I do not see why i
+> should impose my will on where users wish to mount their
+> devices.Since a normal user realistically has writing access only in
+> their home directory,realistically their home directory is the only
+> place they can mount their devices so the "freedom" to choose the
+> mount point is not that wide.  
+
+This concerns me from a number of angles in general, but I don't have any attack vectors offhand.  With udevil I took a more restrictive approach, letting the admin decide.  Also, udevil emulates udisks2's use of /run/media, and the associated acl's.
+
+Even if zuluMount is safe here, it is one area where it cancels udevil's limitations on users (which is merely an issue for me recommending it alongside udevil).
+
+> allowed_files:
+> If a normal user has access to a file with a file system in it,i do
+> not see why they should not be allowed to mount it.If they are not
+> allowed to,then proper permissions should be set on the file to
+> prevent them and zulumount will respect those permissions.  
+
+This and similar settings are where udevil offers a finer level of control.  Useful or not, installing zulumount renders it open to access, so the two programs have some security differences, and zulumount offers run-arounds to some udevil limitations.  Just an issue in my recommending their combination, or extending udevil to include zulumount.
+ 
+> These are suid programs, i recognize the seriousness of them and i
+> take oversights that may lead to privilege escallations very
+> seriously. If you look at the code, you will see that each function
+> that return a value is checked to make sure it return an expected
+> value,if you follow code paths,you will know there are a lot of
+> checks that are done repeatedly,If functions,no matter how deep it is
+> does not make any assumptions that those that came before them have
+> done their due diligence is checking for parameters.All parameters
+> get checks at every turn.  
+
+One question I would have is do you run all the code as root or do you temporarily drop priviledges until needed.  (I can answer this myself in the source - just don't have time to look atm.)  This is important to limit the security implications of buffer overruns, etc.  Also, do you sanitize the inherited environment for root?  (See some guides on writing suid programs in this regard, and some of the security implications re PATH etc.)
+
+> A normal user wishing to mount a device must have writing access to
+> the folder where the mount point is to be created.Realistically,this
+> means they can only mount is in their home directories.  
+
+This also means they cannot mount in /media or /run/media/ which are the traditional mount point locations.  That's probably okay, fuse is similar in some ways, but is somewhat unusual for usb devices.
+
+I'm not sure why udisks2 used /run/media rather than the user's home folder for mount points, but given the acl's there may be some issues to consider there.  I'm a little uncomfortable with the user controlling the mount point and owning it as you're doing - that may have some security implications in terms of a user being able to produce files as another user, depending on the options used to mount the filesystem (uid= etc), or manipulating it after mount.  Not sure on this but it's definitely something to explore if you're giving the user this freedom.  How can it be used to escalate, etc?  There can be very tricky vectors in this area in general.
+
+> I also currently do not limit what file system option a user can
+> use.I have so far not seen a compelling reason to arbitrarily decide
+> on this but i may be uninformed and i am still looking into this,if
+> you know of any links that talk of dangers of allowing all supported
+> file system options to be used,then please send it to me.  
+
+This is definitely an important area.  For one, user mounts should always include nosuid enforced, otherwise there can be all kinds of vulnerabilities introduced to the root account, as you may imagine.  noexec and nodev are also usually included to enhance general security.  Other options which vary by filesystem type can also impact security, eg options which set permissions inside the filesystem.  eg being able to falsely create files which are 'owned' by another user on the system since the user can add a uid= or gid= option, which is enforced as root on mount.  I made this configurable in udevil because there are many nuances to how options affect different fs types.  So limitations on options and enforcement of particular options is vital.
+
+Simply, mount was not designed to be run by non-root users, so it needs careful protection from misuse.
+
+> > Thanks for looking into it,i recognize the dangers of suid programs
+> > and  
+> thats why the FAQ is there and relatively long.Hope you wont mind if
+> i take some of your questions and add them there.  
+
+Sure, np there.  udevil's code for many of the above checks is probably not all that portable - I wrote it in a very custom way.  But you could run udevil to do the device mounts as one temporary solution - just an option to consider, though I realize you won't want the dependency.  Also, an option to completely disable mounting of all devices except encrypted partitions would give users a mode which would be more compatible with udevil.  udevil could also be made to run zulumount as root to mount encrypted partitions only, meaning zulumount would not need to be installed suid in that scenario.  Though I'm not sure what the advantages would be over running cryptsetup directly, which I am somewhat familiar with from a user perspective, except that you've already coded those details.
+
+At present, I find serious security problems in zulumount, so I can't recommend its general use yet, but I'll note some of the issues non-specifically so users can decide (without revealing too much until you have a chance to address them).  While you take a very lax approach to security (perhaps without meaning to), for some users this may be sufficient, and they may appreciate the liberal policies.
+
+I hope you'll continue to refine zulumount's security protocols, because overall it looks like you've developed a nice set of tools.  Dealing with suid caused me a lot of stress too.  The key is to really limit everything that passes through the command line to a very specific set of rules.  Also, security policies should default to restriction - eg using a whitelist for a restrictive policy goes against the grain of good security.  When security mechanisms fail, they should deny, not allow.
+
+In the short-term, you may want to limit zulumount to encrypted volumes only, or provide that option enabled by default.  By allowing users to mount everything, you're tackling a lot of security implications at once.  That's one reason why I didn't get into encrypted volumes yet.  I'm not sure if I will or not.
+
+I'll check back with zulumount and yourself periodically to see how its evolving, and I may make users aware of it with some reservations for now.  Overall nice job - just needs to be tightened down more in my view.  And your choice of dependencies and components shows a lot of wisdom - I think you're making some good choices there which will give zulu a long future.
+
+Also, if you review udevil's code, please keep an eye for anything I may have missed too - I appreciate another set of eyes on it, especially due the suid factor.  There are many potential pitfalls but overall I think suid can be more reasonable than eg udisks running a whole complex daemon as root.
+
+If I can be of any assistance let me know, but please be patient as I can't devote too much time to this subject at present.  And thanks for the info on the spacefm mount issue when you get to that.
+
+
+
+===============================================================================
+From: IgnorantGuru
+To: mhogomchungu
+Cc: OmegaPhil
+Subject: Re: zuluMount
+Date: Tue, 11 Dec 2012
+
+On Tue, 11 Dec 2012 20:05:38 -0700
+IgnorantGuru <ignorantguru@gmx.com> wrote:
+
+> This is definitely an important area.  For one, user mounts should
+> always include nosuid enforced, otherwise there can be all kinds of
+> vulnerabilities introduced to the root account, as you may imagine.
+> noexec and nodev are also usually included to enhance general
+> security.  Other options which vary by filesystem type can also
+> impact security, eg options which set permissions inside the
+> filesystem.  eg being able to falsely create files which are 'owned'
+> by another user on the system since the user can add a uid= or gid=
+> option, which is enforced as root on mount.  I made this configurable
+> in udevil because there are many nuances to how options affect
+> different fs types.  So limitations on options and enforcement of
+> particular options is vital.  
+
+Also on the above:  This is the area where developing a mount solution can get labor intensive.  Except for udevil, all the programs I'm aware of, from pmount to udisks, use a whitelist of fstypes, and have a hard-coded set of options they allow/enforce for certain ones.  This is why they don't support every fs type, and why users are often requesting that they add fs types or options for a given fs type to the supported list.
+
+I avoided this support issue in udevil by making this configurable by the admin in udevil.conf.  This way admins can add fs types and associated default/allowed options themselves, and it puts the burden on them to use and allow appropriate options (or it falls back to a restrictive default).  Unless an option is explicitly allowed, it's denied.  And in the case of some options (eg uid=$UID), variables and wildcards are used to limit values, which is necessary.
+
+I don't know any way out of using one of those two approaches - it's not a once-size-fits-all situation.  Also note that none of these programs allow unrestricted mount options or fs types - its very tightly controlled in all cases.
+
+
+===============================================================================
+From: mhogomchungu
+To: IgnorantGuru
+Cc: OmegaPhil
+Subject: Re: zuluMount
+Date: Wed, 12 Dec 2012
+
+> a) It renders many security features of udevil inoperable, in the sense
+> that zulumount allows a much wider range of actions.
+>
+> Can you be more specific?  
+
+
+> b)  The way you're determining a system device is susceptible to
+> configuration issues (see realpath notes below).  If for any reason a
+> device is disabled in fstab, extra action is required by the user to secure
+> it.  Thus your ootb security is questionable.  The fstab system does not
+> err on the side of caution, but rather on a liberal policy.  Your method
+> for determining a pluggable device is not accurate.
+>
+> Fstab is a config file designed to be managed by hand my system  
+administrators, i made a point to make sure no configuration file mistake
+will crash zuluMount. Your tool is just as susceptible if an administrator
+makes a mistake in its configuration file.With your tool,if a system
+administrator made a mistake and have an entry with "user" option,your
+tool,by default will allow a normal user to mount it. Your config file has
+options for finer tuning but most of them are off by default,i believe that
+is to allow a pleasant "out of the box" experience while allow those who
+seek greater control the ability to have it.
+
+If a user want a volume to be considered a system volume independent of
+fstab,they have /etc/zulucrypttab for that.It exists solely to make a
+device a system device subject to all restrictions of system devices.I have
+an external hard drive and it has its entry in zulucrypttab specifically
+because i want it to be treated as a system device even though it is an
+external usb based device.
+
+Looking at udevil i have found a security issue.Devices are mounted in
+/media,a path accessible to all users of the system and you mount devices
+with 755 permissions,meaning if a user mounts a device there,any other
+logged in user can access the content of the device in read only
+mode.Reading at comment about the mount point in the config,it look like
+you have chosen to default to this insecure configuration.This is something
+i made a concise effort to avoid and that is why i made my tool to allow
+users to create mount point in their home directories because only them and
+root can access them,not anybody else.
+
+It will also be wise to have udevil config file readable only to
+root.Normal users should have no business knowing what options it contains.
+
+In your config options, how is the "forbidden_files" option supposed to
+work for example.If i have an image file i want to mount and its in my home
+directory,then i can rename it to anything i want and hence i can easily
+overcome any forbidden or allowed  file rule.
+
+This options make sense and workable only if the image file is stored in
+locations a user has read access but not write access.The same enforcement
+can be done through permission systems
+
+udisks sidestep unix permission system by using polkit and friends,you do
+the same through the config file. I made a decision from day zero to stick
+with the unix permission system.
+
+
+> Also please see notes below:
+>
+> On Tue, 11 Dec 2012 20:13:21 -0500
+> ".. ink .." <mhogomchungu@gmail.com> wrote:
+>  
+> > The definition of a "system partition" is one with an entry in
+> > /etc/fstab,/etc/crypttab and /etc/zulucrypttab.  
+>
+> I don't find this sufficient to have a whitelist for a restrictive policy.
+>
+> Can you come up with a scenario where this is not adequate? I couldnt  
+think of any,i will make it more restrictive when i see the current
+implementation is inadequate.If you have a practical example, please share
+it.
+
+
+> > All paths give by user pass through functions given by this source
+> > file:
+> >  
+> http://code.google.com/p/zulucrypt/source/browse/zuluCrypt-cli/bin/security.c
+>
+> Noting I haven't looked through that in detail yet.
+>  
+> > A normal user must have reading permission to a path they provide if
+> > they seek to access it in read mode and must have writing access to
+> > all devices they provide if they seek to access them in write
+> > mode.This is true of folders and devices in files( ie devices whose
+> > real path does not start with "/dev/" )  
+>
+> I don't find device node permissions should be indicative of mount
+> permissions necessarily, as I explained in my previous email.  Also distro
+> defaults for these may conflict with zulumount's expectations rendering
+> loopholes.  Rather than permissions on the devices themselves, the user's
+> group might be a better basis of restriction.
+>
+> I do not use device node permissions.Enforcement is done through group  
+system for devices in "/dev" and permission system for the rest of them.
+
+
+>  > A device that starts with "/dev/" that is not found to me a system
+> > partition is allowed to be accessed without any restrictions as the
+> > device is assumed to a pluggable device and a user can simply plug it
+> > in to another system where they have root access and do what they
+> > wish with it.  
+>
+> This appears to me far too liberal a policy for prudent security - it
+> invites a user gaining access to an unintended device by any number of
+> configuration issues.  I think some examination of udev properties is in
+> order - see udevil's or udisks's code for some approaches to this.
+>  
+
+The same could happen everywhere with any tool, a bad polkit policy makes
+the whole polkit system broken,either it silently allows everything or
+denies even the stupidest of things.People expect to plug in a usb device
+and mount it without being asked for passwords or change configuration
+files.This is the same reason why config defaults to liberal options.
+
+>  
+> > Yes,one of the first thing the tool does is to call
+> > realpath(device,NULL) where "device" is the path given by user.The
+> > command does two things,it makes sure the path is valid and and it
+> > also make it i am not dealing with symbolic links.As far as i
+> > know,"realpath" with catch any attempt to deceive using symbolic
+> > links or relative paths.I always deal with paths after they pass
+> > "realpath" command.  
+>
+> That's good you've taken this into consideration.  Unfortunately the
+> standard C implementation of realpath is known to have security flaws, and
+> its use is not recommended for security related purposes.  For this reason,
+> mount (coreutils) uses a custom canonicalize.c which replaces realpath.
+>  udevil also uses this same canonicalize.c for the time being, as do udisks
+> and pmount (I think they use an older replacement there).  I found this
+> researching some of the issues for udevil, but I don't have references on
+> these handy.
+>
+> I have looked at code and seen others ships their own version,never knew  
+why,will look into it.
+
+>  > allowed file system types:
+> > I do not see why i should limit this, at the end of the day, the
+> > mount() command is the one doing all the mounts and it is the one
+> > responsible for enforcing file system security.If the distro ships
+> > with the file system and user want to use it, then who am i to stand
+> > in their way.If a file system is known to be insecure,the distro
+> > should remove it for their system. Do you know of any insecured file
+> > system that is not to be used? i dont know any.  
+>
+> This came up in some of the dev mailing lists on udisks as a concern of
+> some security-savvy people.  I think the inference is that if a malicious
+> module can somehow be inserted into the filesystem (not sure what the
+> specifics are on that), then by mounting a particular fs type, the user can
+> trigger the kernel module to be loaded, which is a very serious compromise.
+>  Thus the general approach is to limit user mounting to filesystems within
+> a whitelist, some of which is based on the installed filesystems in the
+> system (iirc /etc/filesystems), and also a static set of known fs types.
+>  (udevil also permits admins to control this via udevil.conf)
+>
+> The white list in udisks is hard coded,i dont see the list in your config  
+file so you must have hard coded them too if you have them.This does not
+make sense to me. Let say opensuse is shipping with a fs module that is
+known to be insecure and gentoo is shipping with the same fs module that is
+fixed and ubber secure.To blacklist the fs making it inassessible to gentoo
+users because opensuse maintainers are slacking off in their
+responsibilities does not make sense to it.I dont have a name for it by i
+call it "denying alice a feature because bob is known not to be responsible
+with it". This kind of thinking just does not make sense to me.If a module
+is known to be broken then maintainers of the project should disable
+them.Thats the right way to solve the problem.
+
+
+]> allowed_users:  
+> > allowed_groups"
+> > If the device is a system device,then they must be members of
+> > zulucrypt and/or zulucrypt-write group to access them as i explained
+> > above.I do not want to impose any restrictions on pluggable devices
+> > rationale being they can simply take them to another computer where
+> > they have root access and do as they wish with them.  
+>
+> That would be true except that your criteria for what constitutes
+> pluggable devices does not preclude internal devices.  Again I think udev
+> database examination is in order - fstab is not really applicable to this
+> purpose, and parsing is prone to problems (see 'whitelist for a restrictive
+> policy' notes above).
+>
+> udev is a dependency i have so far managed to avoid.udev and udisks seem  
+to be related since there are a lots and lots of "udisks" strings in udev
+arguments and the way they decide what is internal and what is not isnt
+pretty.I have read rants where users complained udisks is denying them
+access to their devices because it decided they were internal when they
+were not and the user wanted them not to be.Its not exactly science here.
+
+An internal device can not be seen as external but an external device can
+be seen as internal.This is a policy i have found no reason to change so
+far.
+
+
+>  > allowed_media_dirs.
+> > By default and in my opinion,preferred location, a mount point folder
+> > is created in a user's home directory.If they choose to mount it at
+> > another location.They must have writing access to where the mount
+> > folder is to be created.This makes sure a normal user can use mount
+> > points only where they have write access to. I do not see why i
+> > should impose my will on where users wish to mount their
+> > devices.Since a normal user realistically has writing access only in
+> > their home directory,realistically their home directory is the only
+> > place they can mount their devices so the "freedom" to choose the
+> > mount point is not that wide.  
+>
+> This concerns me from a number of angles in general, but I don't have any
+> attack vectors offhand.  With udevil I took a more restrictive approach,
+> letting the admin decide.  Also, udevil emulates udisks2's use of
+> /run/media, and the associated acl's.
+>
+> I have read the discussions of why udisks move from /media/ to  
+/run/media/$USER.The explanation they give is the same explanation why i
+have it in a user's home directory.udisks runs a a daemon and they dont
+want a daemon to be subjected to user's controlled paths and thats why they
+use the /run path. I do not have the same concerns as i am not running a
+daemon.
+
+
+> Even if zuluMount is safe here, it is one area where it cancels udevil's
+> limitations on users (which is merely an issue for me recommending it
+> alongside udevil).
+>  
+> > allowed_files:
+> > If a normal user has access to a file with a file system in it,i do
+> > not see why they should not be allowed to mount it.If they are not
+> > allowed to,then proper permissions should be set on the file to
+> > prevent them and zulumount will respect those permissions.  
+>
+> This and similar settings are where udevil offers a finer level of
+> control.  Useful or not, installing zulumount renders it open to access, so
+> the two programs have some security differences, and zulumount offers
+> run-arounds to some udevil limitations.  Just an issue in my recommending
+> their combination, or extending udevil to include zulumount.
+>
+>  Yes,they do offer some security differences.Some may prefer one set of  
+security features,others may prefer another.
+
+Both of our tools are suid programs so use one to call the other seem
+pointless and our differences in security policies as you have said,may
+interfere with one another.
+
+but my program ships with 3 libraries:
+
+libzuluCrypt is the back end library,it has no security features,it takes
+stuff and use them.This is the library that does the creation of encrypted
+volumes and mount of encrypted and unecrypted volumes.
+
+libzuluCrypt-exe is a front end library and it is the one that implement
+security features for zuluCrypt-cli.zuluMount-cli uses libzuluCrypt-exe
+library for some of it security features and it has some of its own.
+
+I made libzuluCrypt as open as i can because i do want to impose anything
+on any person who may wish to use it. If you were to integrate zuluCrypt
+into udevil.libzuluCrypt would be a place to do that,not at the binary
+executable level.
+
+The third library is libzuluCryptpluginManager.This library is used by
+plugins to send zuluCrypt/zuluMount a key securely since the plugin runs
+unprivileged and the key is passed through a unix local socket.
+
+
+ > These are suid programs, i recognize the seriousness of them and i  
+> > take oversights that may lead to privilege escallations very
+> > seriously. If you look at the code, you will see that each function
+> > that return a value is checked to make sure it return an expected
+> > value,if you follow code paths,you will know there are a lot of
+> > checks that are done repeatedly,If functions,no matter how deep it is
+> > does not make any assumptions that those that came before them have
+> > done their due diligence is checking for parameters.All parameters
+> > get checks at every turn.  
+>
+> One question I would have is do you run all the code as root or do you
+> temporarily drop priviledges until needed.  (I can answer this myself in
+> the source - just don't have time to look atm.)  This is important to limit
+> the security implications of buffer overruns, etc.  Also, do you sanitize
+> the inherited environment for root?  (See some guides on writing suid
+> programs in this regard, and some of the security implications re PATH etc.)
+>
+>  
+The link i provided earlier has all the code that check for
+paths.Privileges are dropped before paths are checks to make sure a normal
+user has access to paths they provide. libzuluCrypt runs privileged and
+unrestricted.zuluCrypt-exe is the library that changes privileges as it
+checks to make sure permission policies are enforced.In summary,the whole
+thing runs privileged until a path need to be checked then it drop them to
+check and then it raise them up again.
+
+
+
+> > A normal user wishing to mount a device must have writing access to
+> > the folder where the mount point is to be created.Realistically,this
+> > means they can only mount is in their home directories.  
+>
+> This also means they cannot mount in /media or /run/media/ which are the
+> traditional mount point locations.  That's probably okay, fuse is similar
+> in some ways, but is somewhat unusual for usb devices.
+>
+> Media has issues as i explained above. /run/media is a recent invention  
+from udisks people,something they did without bothering to tell anybody.
+
+
+> I'm not sure why udisks2 used /run/media rather than the user's home
+> folder for mount points, but given the acl's there may be some issues to
+> consider there.  I'm a little uncomfortable with the user controlling the
+> mount point and owning it as you're doing - that may have some security
+> implications in terms of a user being able to produce files as another
+> user, depending on the options used to mount the filesystem (uid= etc), or
+> manipulating it after mount.  Not sure on this but it's definitely
+> something to explore if you're giving the user this freedom.  How can it be
+> used to escalate, etc?  There can be very tricky vectors in this area in
+> general.
+>
+> i read the discussion of why udisks chose not to use user's home  
+directory.I dont run a daemons, their explanations didnt seem to apply to
+me.
+
+>  > I also currently do not limit what file system option a user can
+> > use.I have so far not seen a compelling reason to arbitrarily decide
+> > on this but i may be uninformed and i am still looking into this,if
+> > you know of any links that talk of dangers of allowing all supported
+> > file system options to be used,then please send it to me.  
+>
+> This is definitely an important area.  For one, user mounts should always
+> include nosuid enforced, otherwise there can be all kinds of
+> vulnerabilities introduced to the root account, as you may imagine.  noexec
+> and nodev are also usually included to enhance general security.  Other
+> options which vary by filesystem type can also impact security, eg options
+> which set permissions inside the filesystem.  eg being able to falsely
+> create files which are 'owned' by another user on the system since the user
+> can add a uid= or gid= option, which is enforced as root on mount.  I made
+> this configurable in udevil because there are many nuances to how options
+> affect different fs types.  So limitations on options and enforcement of
+> particular options is vital.
+>
+> i have seen this done,havent seen any explanation of why.Will look into it  
+further.
+
+
+> Simply, mount was not designed to be run by non-root users, so it needs
+> careful protection from misuse.
+>  
+True,but then saying "i am the boss and you shall not use this mount option
+seem over reaching to me" I have seen yellings of people at udisks because
+it refuse to use mount points they prefer to use.
+
+>  
+> > > Thanks for looking into it,i recognize the dangers of suid programs
+> > > and  
+> > thats why the FAQ is there and relatively long.Hope you wont mind if
+> > i take some of your questions and add them there.  
+>
+> Sure, np there.  udevil's code for many of the above checks is probably
+> not all that portable - I wrote it in a very custom way.  But you could run
+> udevil to do the device mounts as one temporary solution - just an option
+> to consider, though I realize you won't want the dependency.  Also, an
+> option to completely disable mounting of all devices except encrypted
+> partitions would give users a mode which would be more compatible with
+> udevil.  udevil could also be made to run zulumount as root to mount
+> encrypted partitions only, meaning zulumount would not need to be installed
+> suid in that scenario.  Though I'm not sure what the advantages would be
+> over running cryptsetup directly, which I am somewhat familiar with from a
+> user perspective, except that you've already coded those details.
+>
+>  
+
+> At present, I find serious security problems in zulumount, so I can't
+> recommend its general use yet, but I'll note some of the issues
+> non-specifically so users can decide (without revealing too much until you
+> have a chance to address them).  While you take a very lax approach to
+> security (perhaps without meaning to), for some users this may be
+> sufficient, and they may appreciate the liberal policies.
+>
+>  What is your opinion on how device notifer handles external and internal  
+device? kde and gnome and other desktop environments do not have such fine
+grained controls and they seem to work fine for most people,you too have
+them very relaxed by default so the extra potential your tool provide is
+something to be inspired by but i dont think it will widely be used.
+
+I hope you'll continue to refine zulumount's security protocols, because
+> overall it looks like you've developed a nice set of tools.  Dealing with
+> suid caused me a lot of stress too.  The key is to really limit everything
+> that passes through the command line to a very specific set of rules.
+>  Also, security policies should default to restriction - eg using a
+> whitelist for a restrictive policy goes against the grain of good security.
+>  When security mechanisms fail, they should deny, not allow.
+>
+> I take security very seriously as will refine in as i issues come  
+alone,thanks for your input.
+
+
+> In the short-term, you may want to limit zulumount to encrypted volumes
+> only, or provide that option enabled by default.  By allowing users to
+> mount everything, you're tackling a lot of security implications at once.
+>  That's one reason why I didn't get into encrypted volumes yet.  I'm not
+> sure if I will or not.
+>
+> The way its supposed to work,if a user does not it to manage encrypted  
+devices,they simply dont provide it encrypted devices.The same for
+unencrypted devices.
+
+I'll check back with zulumount and yourself periodically to see how its
+> evolving, and I may make users aware of it with some reservations for now.
+>  Overall nice job - just needs to be tightened down more in my view.  And
+> your choice of dependencies and components shows a lot of wisdom - I think
+> you're making some good choices there which will give zulu a long future.
+>
+> Also, if you review udevil's code, please keep an eye for anything I may
+> have missed too - I appreciate another set of eyes on it, especially due
+> the suid factor.  There are many potential pitfalls but overall I think
+> suid can be more reasonable than eg udisks running a whole complex daemon
+> as root.
+>
+>  
+If I can be of any assistance let me know, but please be patient as I can't
+> devote too much time to this subject at present.  And thanks for the info
+> on the spacefm mount issue when you get to that.
+>
+>  
+
+
+
+===============================================================================
+From: IgnorantGuru
+To: mhogomchungu
+Cc: OmegaPhil
+Subject: Re: zuluMount
+Date: Wed, 12 Dec 2012
+
+Thanks for looking over udevil...  just want to answer these quickly for you.
+
+> Looking at udevil i have found a security issue.Devices are mounted in
+> /media,a path accessible to all users of the system and you mount
+> devices with 755 permissions,meaning if a user mounts a device
+> there,any other logged in user can access the content of the device
+> in read only mode.Reading at comment about the mount point in the
+> config,it look like you have chosen to default to this insecure
+> configuration.This is something i made a concise effort to avoid and
+> that is why i made my tool to allow users to create mount point in
+> their home directories because only them and root can access them,not
+> anybody else.  
+
+This is a matter of preference more than security - eg no escalation issues, etc.  The default permissions for mounts in /media are traditionally this way, allowing users to share resources on removable devices.  This is more appropriate for a simple system setup.  Admins with larger setups can change this behavior by using /run/media, in which case udevil uses acl's like udisks.  So basically udevil defaults to the older /media style on permissions.  Also, if /media is not present, as on Arch Linux now, it defaults to /run/media for compatibility.
+
+> It will also be wise to have udevil config file readable only to
+> root.Normal users should have no business knowing what options it
+> contains.  
+
+Traditionally all users can access /etc.  However an admin can set the permissions more restrictive if desired.  I've made a note to examine the default on this.  This also tends to be decided by a packager based on their individual distro guidelines.
+
+> In your config options, how is the "forbidden_files" option supposed
+> to work for example.If i have an image file i want to mount and its
+> in my home directory,then i can rename it to anything i want and
+> hence i can easily overcome any forbidden or allowed  file rule.
+> 
+> This options make sense and workable only if the image file is stored
+> in locations a user has read access but not write access.The same
+> enforcement can be done through permission systems  
+
+The difference is that you may want a user to have access to a file or dir (wildcards) but not want to let them mount files in that location.  It's also just a convenient way for an admin to omit a set of files or dirs without having to fine-tune file permissions.  This would probably be a rarely used option but the allow/forbid settings come in these pairs.
+
+
+Re your zulumount comments in general, you sound inclined to take shortcuts on some of these security issues and I don't think that's appropriate.  I suggest you review them carefully.  It does represent a bit of redesign in zulumount's case because you didn't take certain factors into account.  These are time-consuming issues, I agree, but if you fail to address them, you simply open trivially reproducible root exploits, based on several of the issues I presented.
+
+I think your software has useful potential if these issues are addressed.
+
+> > Fstab is a config file designed to be managed by hand my system  
+> administrators, i made a point to make sure no configuration file
+> mistake will crash zuluMount. Your tool is just as susceptible if an
+> administrator makes a mistake in its configuration file.With your
+> tool,if a system administrator made a mistake and have an entry with
+> "user" option,your tool,by default will allow a normal user to mount
+> it.  
+
+When editing udevil's conf file, the admin knows that is its purpose.  Relying on fstab as determining a system device as you are is irregular, and introduces potential ootb security problems with zulumount.  As I pointed out, commenting out a device could leave it vulnerable to users mounting it, as could parsing discrepencies or varying ways of representing devices.  There are a number of potential issues here - I do not believe it is an appropriate system .  For perspective, I would never install zulumount on my system at present due to this issue alone.
+
+> > I do not use device node permissions.Enforcement is done through
+> > group  
+> system for devices in "/dev" and permission system for the rest of
+> them.  
+
+That's what I mean by device nodes - devices in /dev.  I don't believe using the permissions on those files is appropriate for the reasons in my previous emails.  
+
+> The same could happen everywhere with any tool, a bad polkit policy
+> makes the whole polkit system broken,either it silently allows
+> everything or denies even the stupidest of things.People expect to
+> plug in a usb device and mount it without being asked for passwords
+> or change configuration files.This is the same reason why config
+> defaults to liberal options.  
+
+You're missing the point - your method for determining what is and is not a removable vs system device is flawed and vulnerable to many configuration issues.  Liberal is one thing, root exploits are another.
+
+> > The white list in udisks is hard coded,i dont see the list in your
+> > config  
+> file so you must have hard coded them too if you have them.This does
+> not make sense to me. Let say opensuse is shipping with a fs module
+> that is known to be insecure and gentoo is shipping with the same fs
+> module that is fixed and ubber secure.To blacklist the fs making it
+> inassessible to gentoo users because opensuse maintainers are
+> slacking off in their responsibilities does not make sense to it.I
+> dont have a name for it by i call it "denying alice a feature because
+> bob is known not to be responsible with it". This kind of thinking
+> just does not make sense to me.If a module is known to be broken then
+> maintainers of the project should disable them.Thats the right way to
+> solve the problem.  
+
+As I said I think it has to do with files being introduced in other ways besides a distro.  Having a file permission problem is one thing, having a compromised kernel is another, especially in terms of eg selinux, etc.  Not attending to this issue opens a vector of escalation.  But I'm not knowledgeable of all the details - have a look at the udisks mailing list or inquire if you have questions on it.  But it was discussed and implemented this way in udisks to address a specific exploit.  No mount solutions allow unrestricted fs types for a reason.
+
+> > udev is a dependency i have so far managed to avoid.udev and udisks
+> > seem  
+> to be related since there are a lots and lots of "udisks" strings in
+> udev arguments and the way they decide what is internal and what is
+> not isnt pretty.I have read rants where users complained udisks is
+> denying them access to their devices because it decided they were
+> internal when they were not and the user wanted them not to be.Its
+> not exactly science here.  
+
+When a  determination mechanism fails, it should deny, not allow, so udisks is correct to deny some devices in this event.  You seem to be designing your security backwards - to allow anything unrecognized.  This is a difficult determination but manageable.  udev does not depend on udisks, merely uses the name in some properties.
+
+> An internal device can not be seen as external but an external device
+> can be seen as internal.This is a policy i have found no reason to
+> change so far.  
+
+If an internal device is not listed in fstab, zulumount sees it as external, which is not logical or secure.
+
+> The link i provided earlier has all the code that check for
+> paths.Privileges are dropped before paths are checks to make sure a
+> normal user has access to paths they provide. libzuluCrypt runs
+> privileged and unrestricted.zuluCrypt-exe is the library that changes
+> privileges as it checks to make sure permission policies are
+> enforced.In summary,the whole thing runs privileged until a path need
+> to be checked then it drop them to check and then it raise them up
+> again.  
+
+This could be improved by using root only when needed, rather than dropping it only when unwanted.
+
+Also make a note to look into sanitizing root's env noted earlier.
+
+> > Simply, mount was not designed to be run by non-root users, so it
+> > needs careful protection from misuse.
+> >  
+> True,but then saying "i am the boss and you shall not use this mount
+> option seem over reaching to me" I have seen yellings of people at
+> udisks because it refuse to use mount points they prefer to use.  
+
+This has to do with not opening root exploits and escalation issues.  udisks simply doesn't allow custom mount points as it wasn't designed for that.  It must be done carefully because it can introduce exploits.
+
+> >  What is your opinion on how device notifer handles external and
+> > internal  
+> device? kde and gnome and other desktop environments do not have such
+> fine grained controls and they seem to work fine for most people,you
+> too have them very relaxed by default so the extra potential your
+> tool provide is something to be inspired by but i dont think it will
+> widely be used.  
+
+There are known problems in this, such as esata external drives being treated as internal.  That's why udevil allows a little extra flexibility for the admin to make exceptions to the automatic determinations.  udevil isn't all that relaxed - I would describe it as quite paranoid by default, as any privilege granting root program should be.
+
+===============================================================================
