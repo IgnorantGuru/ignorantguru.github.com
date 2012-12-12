@@ -2,7 +2,7 @@
 Hash: SHA256
 
 Dec 12, 2012
-- From IgnorantGuru re 
+- - From IgnorantGuru re 
 http://igurublog.wordpress.com/2012/12/10/spacefm-development-notes/#comment-18170:
 
 The following email exchange contains some issues I have with zuluMount's 
@@ -162,7 +162,7 @@ Cc: OmegaPhil
 Subject: Re: zuluMount
 Date: Tue, 11 Dec 2012
 
-On Tue, Dec 11, 2012 at 6:54 PM, IgnorantGuru <ignorantguru@gmx.com> wrote:
+On Tue, Dec 11, 2012, IgnorantGuru wrote:
 
 > Hi, thanks for introducing me to your zulumount - you're doing some great
 > work there in an area that needs independent tools!
@@ -423,8 +423,7 @@ pluggable device is not accurate.
 
 Also please see notes below:
 
-On Tue, 11 Dec 2012 20:13:21 -0500
-".. ink .." <mhogomchungu@gmail.com> wrote:
+On Tue, 11 Dec 2012, ".. ink .." mhogomchungu wrote:
 
 > The definition of a "system partition" is one with an entry in
 > /etc/fstab,/etc/crypttab and /etc/zulucrypttab.  
@@ -660,8 +659,7 @@ Cc: OmegaPhil
 Subject: Re: zuluMount
 Date: Tue, 11 Dec 2012
 
-On Tue, 11 Dec 2012 20:05:38 -0700
-IgnorantGuru <ignorantguru@gmx.com> wrote:
+On Tue, 11 Dec 2012, IgnorantGuru wrote:
 
 > This is definitely an important area.  For one, user mounts should
 > always include nosuid enforced, otherwise there can be all kinds of
@@ -763,8 +761,7 @@ with the unix permission system.
 
 > Also please see notes below:
 >
-> On Tue, 11 Dec 2012 20:13:21 -0500
-> ".. ink .." <mhogomchungu@gmail.com> wrote:
+> On Tue, 11 Dec 2012, ".. ink .." mhogomchungu wrote:
 >  
 > > The definition of a "system partition" is one with an entry in
 > > /etc/fstab,/etc/crypttab and /etc/zulucrypttab.  
@@ -1314,7 +1311,7 @@ granting root program should be.
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.12 (GNU/Linux)
 
-iF4EAREIAAYFAlDIrdAACgkQJ6WsWgGTdiE9nQEA6VsvCA37+ME4+szOt+gLuoFY
-w8GQLg0rDkCKGb+QA1MBAI6m1tkoEJ1n6pYrzEq7pCwWreQOJaKw3z1ezVqDffXG
-=pITd
+iF4EAREIAAYFAlDIr6EACgkQJ6WsWgGTdiEV2AEA9b3bU5VeMyAgCKWhjfmPAtBa
+JUdl6lf2e6bKPed0p+MA/0SXSKMFKjIMuI3WiVc0mNG7z4lrT/CuWaaYT0EoN7sl
+=+cB3
 -----END PGP SIGNATURE-----
