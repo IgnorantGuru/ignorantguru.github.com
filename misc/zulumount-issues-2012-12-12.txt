@@ -1,5 +1,8 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
 Dec 12, 2012
-From IgnorantGuru re 
+- From IgnorantGuru re 
 http://igurublog.wordpress.com/2012/12/10/spacefm-development-notes/#comment-18170:
 
 The following email exchange contains some issues I have with zuluMount's 
@@ -1308,3 +1311,10 @@ relaxed - I would describe it as quite paranoid by default, as any privilege
 granting root program should be.
 
 ===============================================================================
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.12 (GNU/Linux)
+
+iF4EAREIAAYFAlDIrdAACgkQJ6WsWgGTdiE9nQEA6VsvCA37+ME4+szOt+gLuoFY
+w8GQLg0rDkCKGb+QA1MBAI6m1tkoEJ1n6pYrzEq7pCwWreQOJaKw3z1ezVqDffXG
+=pITd
+-----END PGP SIGNATURE-----
