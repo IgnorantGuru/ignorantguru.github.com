@@ -211,42 +211,63 @@ Description: Batch-renames files using a sed script
  them unique. It also supports a simulation mode.
 
 Package: spacefm
-Version: 0.8.4-1
+Version: 0.8.5-1
 Architecture: all
 Maintainer: IgnorantGuru <ignorantguru@gmx.com>
-Installed-Size: 1208
+Installed-Size: 1211
 Pre-Depends: autotools-dev, bash, desktop-file-utils, build-essential, libc6, libcairo2, libglib2.0-0, libgtk2.0-0 (>= 2.18), libgtk2.0-bin, libpango1.0-0, libx11-6, shared-mime-info, intltool, pkg-config, libgtk2.0-dev (>= 2.18), libglib2.0-dev, fakeroot, libudev0 (>= 143), libudev-dev
 Suggests: udevil, pmount, eject, lsof, wget, ktsuss, gksu, dbus, libdbus-1-3, libdbus-1-dev, libstartup-notification0, libstartup-notification0-dev
-Conflicts: spacefm-hal
+Conflicts: spacefm-gtk3, spacefm-hal
 Homepage: http://ignorantguru.github.com/spacefm/
 Priority: optional
 Section: utils
-Filename: pool/main/s/spacefm/spacefm_0.8.4-1_all.deb
-Size: 1180214
-SHA256: 8f6c880066b450c17950078d9097db5ad6eb6396504128e2cf8b8ad6f8bf25c6
-SHA1: bc68a8737e5ed0f837aa175f7854e069ca4692af
-MD5sum: a71ddc685bbbb2eafb08e8673695c365
+Filename: pool/main/s/spacefm/spacefm_0.8.5-1_all.deb
+Size: 1183522
+SHA256: 1adf1d800ba3b27f992826b79c7c662b17e0168a1f8644af93757a9143a5c120
+SHA1: d47f63f57fc60d580fb01c22c5b4a23fb3ec85c5
+MD5sum: 50c6a9a59c05f69a0430fe8610bc20c0
 Description: A multi-panel tabbed file manager with built-in VFS, udev-based
- device manager, customizable menu system, and bash integration.
+ device manager, customizable menu system, and bash integration - GTK2 version.
+ NOTE:  This package automatically builds and installs SpaceFM from source.
+ /tmp must NOT be mounted noexec during installation.
+
+Package: spacefm-gtk3
+Version: 0.8.5-1
+Architecture: all
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 1211
+Pre-Depends: autotools-dev, bash, desktop-file-utils, build-essential, libc6, libcairo2, libglib2.0-0, libgtk-3-0, libgtk-3-bin, libpango1.0-0, libx11-6, shared-mime-info, intltool, pkg-config, libgtk-3-dev, libglib2.0-dev, fakeroot, libudev0 (>= 143), libudev-dev
+Suggests: udevil, pmount, eject, lsof, wget, ktsuss, gksu, dbus, libdbus-1-3, libdbus-1-dev, libstartup-notification0, libstartup-notification0-dev
+Conflicts: spacefm, spacefm-hal
+Homepage: http://ignorantguru.github.com/spacefm/
+Priority: optional
+Section: utils
+Filename: pool/main/s/spacefm-gtk3/spacefm-gtk3_0.8.5-1_all.deb
+Size: 1183514
+SHA256: 174dcf07658d99d7672cbc680771798bd390d805f30bda55779033f7f9b31332
+SHA1: b4aeef8a420eb0dfd661554363f377fbb6c8e657
+MD5sum: c909b94b9a2280c24144cd5a4438ce51
+Description: A multi-panel tabbed file manager with built-in VFS, udev-based
+ device manager, customizable menu system, and bash integration - GTK3 version.
  NOTE:  This package automatically builds and installs SpaceFM from source.
  /tmp must NOT be mounted noexec during installation.
 
 Package: spacefm-hal
-Version: 0.8.4-1
+Version: 0.8.5-1
 Architecture: all
 Maintainer: IgnorantGuru <ignorantguru@gmx.com>
-Installed-Size: 1209
+Installed-Size: 1211
 Pre-Depends: autotools-dev, bash, dbus, desktop-file-utils, build-essential, libc6, libcairo2, libdbus-1-3, libglib2.0-0, libgtk2.0-0 (>= 2.18), libgtk2.0-bin, libpango1.0-0, libstartup-notification0, libx11-6, shared-mime-info, intltool, pkg-config, libgtk2.0-dev (>= 2.18), libglib2.0-dev, fakeroot, libstartup-notification0-dev, libdbus-1-dev, hal, libhal-dev, libhal-storage-dev, libdbus-glib-1-dev, libhal-storage1, libhal1, libdbus-glib-1-2
 Suggests: eject, lsof, wget, ktsuss, gksu
-Conflicts: spacefm
+Conflicts: spacefm, spacefm-gtk3
 Homepage: http://ignorantguru.github.com/spacefm/
 Priority: optional
 Section: utils
-Filename: pool/main/s/spacefm-hal/spacefm-hal_0.8.4-1_all.deb
-Size: 1180320
-SHA256: 71ad55425ac7e7c13389158289b8b0e89804da495ba7994082bb1a1238306c8c
-SHA1: efd42d08a40045d10c5da06335704698f29a9c21
-MD5sum: 1636b9c008d4e92f975d7380e9aaa90c
+Filename: pool/main/s/spacefm-hal/spacefm-hal_0.8.5-1_all.deb
+Size: 1183610
+SHA256: dba30cbb3dd8366dfe883adb92a899547a94d410802ec0b3abdba2ae2a353dab
+SHA1: f63a3cd662edfab8b568635951cc32f96c9954d2
+MD5sum: 59fbf4fe0876c6695a06332e399c695b
 Description: A multi-panel tabbed file manager with built-in VFS, udev-based
  device manager*, customizable menu system, and bash integration.
  * This package is built with deprecated HAL support instead of udev - device
