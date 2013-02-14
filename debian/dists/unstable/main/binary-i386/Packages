@@ -31,19 +31,19 @@ MD5sum: a6b2079d46ce0db54026009f4f02a4a6
 Description: Sets up and performs mounting of ISO files by non-root user
 
 Package: mplayerstart
-Version: 1.4.1-1
+Version: 1.4.2-1
 Architecture: all
-Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
-Installed-Size: 28
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 37
 Depends: mplayer, zenity
 Suggests: alsa-utils
 Priority: optional
 Section: utils
-Filename: pool/main/m/mplayerstart/mplayerstart_1.4.1-1_all.deb
-Size: 6760
-SHA256: 2492b3c249681694a2a4dba16c7d40b17212fb55fab076fda27e6276bdcfa51d
-SHA1: 8ff06bfa7215a17dcd5c0f5420a26a5071f63ea2
-MD5sum: 429f369364993a49a83f77873c498dd6
+Filename: pool/main/m/mplayerstart/mplayerstart_1.4.2-1_all.deb
+Size: 14038
+SHA256: 73e7039dc785e602d51d555120fc896430d89d0fd1ccc81535c905fee41bdac6
+SHA1: 08375812124a66917b253208fb3e6f3fe1b5705e
+MD5sum: 73209023a0a34b2f2900348a08d1ceae
 Description: Wrapper script for mplayer which adds resumable playback
  mplayerstart is a wrapper script for mplayer - it adds the ability to
  resume video and audio playback from a saved position, send video output
