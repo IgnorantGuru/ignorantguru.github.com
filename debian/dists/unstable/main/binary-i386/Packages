@@ -173,18 +173,18 @@ Description: Removes duplicate files from specified folders
  limit its search to files of specified size.
 
 Package: sandfox
-Version: 1.1.3-1
+Version: 1.1.4-1
 Architecture: all
-Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
-Installed-Size: 55
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 37
 Depends: inotify-tools, lsof
 Priority: optional
 Section: utils
-Filename: pool/main/s/sandfox/sandfox_1.1.3-1_all.deb
-Size: 14366
-SHA256: d06ab2db951db56500a15226ea5cea0db6f5463a63cb28f2a718f56fbe0062bd
-SHA1: eabb70abf0adf904d3ac8cf1da69d78aa7e76196
-MD5sum: 08e62b7ed5ac67ed30e44e369fc4ae75
+Filename: pool/main/s/sandfox/sandfox_1.1.4-1_all.deb
+Size: 14224
+SHA256: ca1b3ed0da4bc0771a756ee8c2e8f9895875c626a750cb1693aee122c5f05a59
+SHA1: 200cf197ec7f83ab6d971680ece42310517f2c50
+MD5sum: 690ba8750089712100ae6f1dd25c7319
 Description: Runs Firefox and other apps in a filesystem sandbox
  Sandfox runs programs within sandboxes. Programs and their child processes,
  like Firefox plugins, Flash, and Java, are only able to access files within
