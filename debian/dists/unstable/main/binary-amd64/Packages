@@ -1,49 +1,49 @@
 Package: kscrubber
-Version: 1.2.8-1
+Version: 1.2.8-2
 Architecture: all
-Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
-Installed-Size: 44
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 67
 Depends: secure-delete, sqlite3
 Priority: optional
 Section: utils
-Filename: pool/main/k/kscrubber/kscrubber_1.2.8-1_all.deb
-Size: 9394
-SHA256: 850e679b0a52bbce3e257a694c797c6c44934df38a252b228e39c78ec973f7f4
-SHA1: 55eac2b1fabbc69769901555c6cdd6d95cfd757d
-MD5sum: aefe3ba3d8805a6592e229d54e6c0cce
+Filename: pool/main/k/kscrubber/kscrubber_1.2.8-2_all.deb
+Size: 21632
+SHA256: 43b11e50c1b3030973dc8acd86b2b8579b98237ecf5845692aad8ddbac34a6e0
+SHA1: 26142f0269b93a7ba2b76f27bbd9a0d91274163b
+MD5sum: b403fdd6e54c5d4ffaecfd07c99f7b1b
 Description: Cleans logs and removes recent activity information
  A tool for removing and cleaning specific system files, logs, and user
  files, for the purposes of freeing disk space and also removing recent
  activity information.
 
 Package: mountiso
-Version: 1.0.1-2
+Version: 1.0.1-3
 Architecture: all
-Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
-Installed-Size: 8
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 43
 Priority: optional
 Section: utils
-Filename: pool/main/m/mountiso/mountiso_1.0.1-2_all.deb
-Size: 3642
-SHA256: a6ba897779227dd351c1ead6a23db4000c56d9bf8a3e7c906bf4c1bc079668c5
-SHA1: a6f84d0bd39d28fbbff919dea81de65d411bb5a3
-MD5sum: a6b2079d46ce0db54026009f4f02a4a6
+Filename: pool/main/m/mountiso/mountiso_1.0.1-3_all.deb
+Size: 15576
+SHA256: 996ffdf101d180e45469037df10ce8401f98685ecb86757778781d9a8e97a074
+SHA1: a534bd1574b702c587091bfd15dd1e2281fb275f
+MD5sum: 8c6cf634e22a31a3136dcba949dc0133
 Description: Sets up and performs mounting of ISO files by non-root user
 
 Package: mplayerstart
-Version: 1.4.2-1
+Version: 1.4.2-2
 Architecture: all
 Maintainer: IgnorantGuru <ignorantguru@gmx.com>
-Installed-Size: 37
+Installed-Size: 52
 Depends: mplayer, zenity
 Suggests: alsa-utils
 Priority: optional
 Section: utils
-Filename: pool/main/m/mplayerstart/mplayerstart_1.4.2-1_all.deb
-Size: 14038
-SHA256: 73e7039dc785e602d51d555120fc896430d89d0fd1ccc81535c905fee41bdac6
-SHA1: 08375812124a66917b253208fb3e6f3fe1b5705e
-MD5sum: 73209023a0a34b2f2900348a08d1ceae
+Filename: pool/main/m/mplayerstart/mplayerstart_1.4.2-2_all.deb
+Size: 18798
+SHA256: 0d0f0ad07c9b471719faf2b0d248c8d13bec4ad536d7dbf12d8fbb27a43ea833
+SHA1: a6b158ca2e5c14d59345169eda849ea7a124cd53
+MD5sum: a72f750e84772803e5e00c937c8c6735
 Description: Wrapper script for mplayer which adds resumable playback
  mplayerstart is a wrapper script for mplayer - it adds the ability to
  resume video and audio playback from a saved position, send video output
@@ -100,71 +100,71 @@ Description: A modified version of the legacy PCMan File Manager v0.5.2
  features will be disabled - consider using devmon for automounting.
 
 Package: permz
-Version: 1.0.1-1
+Version: 1.0.1-2
 Architecture: all
-Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
-Installed-Size: 20
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 45
 Depends: zenity, gksu
 Suggests: sudo
 Priority: optional
 Section: utils
-Filename: pool/main/p/permz/permz_1.0.1-1_all.deb
-Size: 4318
-SHA256: d85f42a76226993cc5d344904887983bcb2880c402687f39727c939d975dd01f
-SHA1: 3f821265ae3e7100b6f687150bbe5a24620bd122
-MD5sum: 36f91ee12e62271b1cb74b654e52b651
+Filename: pool/main/p/permz/permz_1.0.1-2_all.deb
+Size: 16396
+SHA256: 8ffcd066fa813cda2d33710963dd0eea08ce413a1231453efda501e628d2a503
+SHA1: 32d24b358f2f8ddb4cbf8e5ae681d674d7468dc9
+MD5sum: 63c2ada0574f3b2aa1b64d6495850512
 Description: Presents a menu for quickly changing file permissions/ownership
  permz presents a GUI menu which allows you to quickly change file
  permissions and ownership as a normal user or as root, and delete files as
  root. permz is designed to be integrated into any file manager.
 
 Package: repic
-Version: 1.1.1-1
+Version: 1.1.1-2
 Architecture: all
-Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
-Installed-Size: 24
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 45
 Depends: imagemagick, jhead, zenity
 Priority: optional
 Section: utils
-Filename: pool/main/r/repic/repic_1.1.1-1_all.deb
-Size: 4440
-SHA256: aa83c8757b2d3c89aa1ed6d57a430cbf1bfc51d612c4c22f4363112d9e4b4252
-SHA1: eca266f2513a0aad55218aac74d3b1e5919fb4a5
-MD5sum: 7d333da5037782c2c2b51e8e02376301
+Filename: pool/main/r/repic/repic_1.1.1-2_all.deb
+Size: 16566
+SHA256: 7fd824b53b98040aa241e4dd5383d02b173f298a0a5c85e44676f106f5322223
+SHA1: 978396e0667a7f2f0d2d5d5e699adfcefc827f02
+MD5sum: 043146b98541f7436514fe7341496854
 Description: Resizes and rotates JPEGs, and creates Claws and Kmail email
  repic resizes one or more JPEG files on the command line, and can also
  create an email message in Claws or KMail with the resized images attached.
 
 Package: ripdvd
-Version: 1.0.0-1
+Version: 1.0.0-2
 Architecture: all
-Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
-Installed-Size: 16
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 40
 Depends: mplayer, libdvdcss2
 Priority: optional
 Section: utils
-Filename: pool/main/r/ripdvd/ripdvd_1.0.0-1_all.deb
-Size: 3068
-SHA256: 41ac357432961ec5572ddb95edbdd58d6583c23aee9ab3941f6018d4cc4e9597
-SHA1: d0687c9a8b2a146d80a424f3818494e1494b5429
-MD5sum: 511bb5b1380e6092ede43bcaefa04e70
+Filename: pool/main/r/ripdvd/ripdvd_1.0.0-2_all.deb
+Size: 15158
+SHA256: 669de5c38c60e535366bd61eefbf09ae60582c70c2fd48a455e0473294fcd6c6
+SHA1: 16d193b42fd47f945562c6bc910a41d7322daa07
+MD5sum: c50ccb5608505ada82676c4cdbf4b264
 Description: Copies the titles on a DVD
  ripdvd uses mplayer to copy the titles on a DVD to your hard drive or other
  device. The titles are saved as VOB (MPEG) files which can be played with
  any video player.
 
 Package: rmdupe
-Version: 1.0.3-1
+Version: 1.0.3-2
 Architecture: all
-Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
-Installed-Size: 24
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 48
 Priority: optional
 Section: utils
-Filename: pool/main/r/rmdupe/rmdupe_1.0.3-1_all.deb
-Size: 4960
-SHA256: 1124e54cfd7c4fe4d542de9e7b950fce2f48189bd46b964f5fab1a54c22efd6e
-SHA1: 94e936becb7e1b067cce0c62bf6ed376ecda84fc
-MD5sum: cac3c0123335772faa4f0c658b3e7de6
+Filename: pool/main/r/rmdupe/rmdupe_1.0.3-2_all.deb
+Size: 17068
+SHA256: 874fbb032238bf11b6134b0b1bbf76a599471ca01fdc647af3701f457530ab7e
+SHA1: 91a5c6f6139343806f973a5c9b0494460930c572
+MD5sum: 587f4b01e9764a4fae7d8ec600e90323
 Description: Removes duplicate files from specified folders
  rmdupe uses standard linux commands to search within specified folders for
  duplicate files, regardless of filename or extension. rmdupe can also
@@ -173,18 +173,18 @@ Description: Removes duplicate files from specified folders
  limit its search to files of specified size.
 
 Package: sandfox
-Version: 1.1.4-1
+Version: 1.1.4-2
 Architecture: all
 Maintainer: IgnorantGuru <ignorantguru@gmx.com>
-Installed-Size: 37
+Installed-Size: 91
 Depends: inotify-tools, lsof
 Priority: optional
 Section: utils
-Filename: pool/main/s/sandfox/sandfox_1.1.4-1_all.deb
-Size: 14224
-SHA256: ca1b3ed0da4bc0771a756ee8c2e8f9895875c626a750cb1693aee122c5f05a59
-SHA1: 200cf197ec7f83ab6d971680ece42310517f2c50
-MD5sum: 690ba8750089712100ae6f1dd25c7319
+Filename: pool/main/s/sandfox/sandfox_1.1.4-2_all.deb
+Size: 26568
+SHA256: eeae52b01771f35890bd3b68d49d416f0a24b76faa22e76be87d6d826aec78cb
+SHA1: 3be05b36dd908e9293be96d5226397e40a82628c
+MD5sum: f9fdf0d94f82ef20ec6821fd9575b93a
 Description: Runs Firefox and other apps in a filesystem sandbox
  Sandfox runs programs within sandboxes. Programs and their child processes,
  like Firefox plugins, Flash, and Java, are only able to access files within
@@ -192,23 +192,23 @@ Description: Runs Firefox and other apps in a filesystem sandbox
  default profiles for Firefox, Skype, and Google-Earth.
 
 Package: sedname
-Version: 1.0.1-1
+Version: 1.0.1-2
 Architecture: all
-Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
-Installed-Size: 20
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 41
 Priority: optional
 Section: utils
-Filename: pool/main/s/sedname/sedname_1.0.1-1_all.deb
-Size: 3338
-SHA256: 6868b65143ca54ee8c160fa954530f253ff1cfa8908c79e6d6bcd7caf873f7af
-SHA1: 038adbf2b79bc7f10afb45311267f1ecfa18a91f
-MD5sum: 839be6c1a36b789c2b18bd8e97a8ec35
+Filename: pool/main/s/sedname/sedname_1.0.1-2_all.deb
+Size: 15456
+SHA256: de864be03e4cadf23d891bb6eed83f315708a7a7d0f9be58a48c76b50891305f
+SHA1: 14519f1092fc17b0f60f093189261c337703d8c0
+MD5sum: 5dda130b819ffa564c102cae9a841942
 Description: Batch-renames files using a sed script
  sedname passes filenames through the sed stream editor using a sed script
  you specify, and renames the files to the result. If you are familiar with
- sed, sedname provides a familiar way to rename batches of files quickly. In
- addition, sedname can insert sequential numbers into the filenames to make
- them unique. It also supports a simulation mode.
+ sed, sedname provides a familiar way to rename batches of files quickly.
+ sedname can also insert sequential numbers into the filenames to make
+ them unique, and it includes a simulation mode.
 
 Package: spacefm
 Version: 0.8.7-1
@@ -317,18 +317,18 @@ Description: Creates a javascript website from a folder of pics
  viewer includes a slideshow capability.
 
 Package: xtract
-Version: 1.1.0-2
+Version: 1.1.0-3
 Architecture: all
-Maintainer: IgnorantGuru (igurublog.wordpress.com) <ignorantguru@users.sourceforge.net>
-Installed-Size: 17
+Maintainer: IgnorantGuru <ignorantguru@gmx.com>
+Installed-Size: 52
 Suggests: zenity, xz-utils, unzip, bzip2, p7zip, unrar, sudo, gksu
 Priority: optional
 Section: utils
-Filename: pool/main/x/xtract/xtract_1.1.0-2_all.deb
-Size: 5800
-SHA256: 103f37b71c3a6a7829fb04fbae3f0450205b688162472a41b2a6f0a5d5323bc7
-SHA1: a84591f56cd6d1bcd31da9c9c10e1cd98c5c83f6
-MD5sum: b6364e06d9683dab492c72f947c68565
+Filename: pool/main/x/xtract/xtract_1.1.0-3_all.deb
+Size: 17792
+SHA256: e7a6721eafe47b3299a8ae80ec74a4facf285e736abc1f04e79cd12d58e8f9da
+SHA1: 11308522fe8108858b31ead185e7549be81be50c
+MD5sum: 93c55349075ced4851419ce85efd6bf6
 Description: Decompresses and extracts archives in your file manager
  Designed for file manager integration, Xtract decompresses and extracts
  archives, and can also list archive contents. By default, an archive is
