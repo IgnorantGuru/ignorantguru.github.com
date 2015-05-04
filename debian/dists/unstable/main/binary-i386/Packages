@@ -276,10 +276,10 @@ Description: A multi-panel tabbed file manager with built-in VFS, udev-based
  /tmp must NOT be mounted noexec.
 
 Package: udevil
-Version: 0.4.3-1
+Version: 0.4.4-1
 Architecture: all
 Maintainer: IgnorantGuru <ignorantguru@gmx.com>
-Installed-Size: 383
+Installed-Size: 384
 Pre-Depends: autotools-dev, build-essential, libc6, libglib2.0-0, intltool, pkg-config, libglib2.0-dev, fakeroot, libudev0 (>= 143) | libudev1, libudev-dev
 Suggests: eject, cifs-utils, curlftpfs, sshfs, davfs2, spacefm
 Conflicts: devmon
@@ -287,11 +287,11 @@ Provides: devmon
 Homepage: http://ignorantguru.github.com/udevil/
 Priority: optional
 Section: utils
-Filename: pool/main/u/udevil/udevil_0.4.3-1_all.deb
-Size: 335690
-SHA256: a9f5b4a188ddf9bf71877da142be312518bb49fa650502c3d903c5939b406da9
-SHA1: 0b423924e4ab878900286268705cec4dc1ae8cf2
-MD5sum: a2a3c3b32ffc1d62a94571c22a245e62
+Filename: pool/main/u/udevil/udevil_0.4.4-1_all.deb
+Size: 337258
+SHA256: f9dc94068e79cad91999b91b98e0d0f1026a39c44e57b83719da2c88220b1a9c
+SHA1: 11eaaf2182b6c69787a840bc33b1400e88623300
+MD5sum: 3ab1b7c20c14b2d1ddef2768355ae263
 Description: Mounts and unmounts removable devices and networks without a
  password (set suid), shows device info, monitors device changes.  Includes
  the devmon automounting script.
