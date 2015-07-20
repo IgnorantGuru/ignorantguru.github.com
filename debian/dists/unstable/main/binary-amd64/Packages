@@ -154,17 +154,17 @@ Description: Copies the titles on a DVD
  any video player.
 
 Package: rmdupe
-Version: 1.0.3-2
+Version: 1.0.4-1
 Architecture: all
 Maintainer: IgnorantGuru <ignorantguru@gmx.com>
 Installed-Size: 48
 Priority: optional
 Section: utils
-Filename: pool/main/r/rmdupe/rmdupe_1.0.3-2_all.deb
-Size: 17068
-SHA256: 874fbb032238bf11b6134b0b1bbf76a599471ca01fdc647af3701f457530ab7e
-SHA1: 91a5c6f6139343806f973a5c9b0494460930c572
-MD5sum: 587f4b01e9764a4fae7d8ec600e90323
+Filename: pool/main/r/rmdupe/rmdupe_1.0.4-1_all.deb
+Size: 15966
+SHA256: 8f287d5ed53d6b24f2e15e885ed264f289a8a82553faad245ac2e2619744c10b
+SHA1: fbdfb333aac4b3b8c3677234f02642bc3c2616f1
+MD5sum: 18a6d6d3d5ee59179c954391cf63b346
 Description: Removes duplicate files from specified folders
  rmdupe uses standard linux commands to search within specified folders for
  duplicate files, regardless of filename or extension. rmdupe can also
