@@ -4,36 +4,36 @@ Hash: SHA256
 Origin: IgnorantGuru PPA
 Suite: unstable
 Codename: unstable
-Date: Wed, 26 Aug 2015 14:28:15 UTC
+Date: Sat, 17 Oct 2015 19:43:48 UTC
 Architectures: i386 amd64
 Components: main
 Description: IgnorantGuru PPA http://igurublog.wordpress.com/downloads/ppa/
 MD5Sum:
- bb222d3b265cabb5e0646aaa84214ddf 15103 main/binary-i386/Packages
- b104aa725681a5574d12d7facd432a73 5068 main/binary-i386/Packages.gz
+ 96ef140469d4972ed6ab1c5bc2124842 11190 main/binary-i386/Packages
+ ff3ae4e692716b2eea921d69f680c342 4339 main/binary-i386/Packages.gz
  96981ff73da13f68ffe092430bd02ba9 140 main/binary-i386/Release
- 647553e11300f0460f991b58ad0373e7 15107 main/binary-amd64/Packages
- 4121d0b0f0012c27f9d062d63e7addc3 5069 main/binary-amd64/Packages.gz
+ 8ec4450a11cbb11d6eb4a3244489c976 11194 main/binary-amd64/Packages
+ ceff697f5064ca02c71da00194608406 4340 main/binary-amd64/Packages.gz
  b107074eed9e39ba871280f5cfb5203a 141 main/binary-amd64/Release
  d41d8cd98f00b204e9800998ecf8427e 0 main/source/Sources
  7029066c27ac6f5ef18d660d5741979a 20 main/source/Sources.gz
  3b304ca8421ae7a23775b555b1c11748 142 main/source/Release
 SHA1:
- f34a611140b9cb8ed5451bfc2de25056072a2913 15103 main/binary-i386/Packages
- ac8456a24e4c9cf18b288033275d20290a45e9d1 5068 main/binary-i386/Packages.gz
+ 5dccc98a21da316c364d47cff99ca9668c432dde 11190 main/binary-i386/Packages
+ d68785c74f6a1fdfd128a68b9d834aa2575f86f9 4339 main/binary-i386/Packages.gz
  a32b51f92fe80e25f12717f835f0d2bb4a43f1e8 140 main/binary-i386/Release
- f36a37763dbc36815dd9b4f84c13f232287a5b9d 15107 main/binary-amd64/Packages
- 6173b3c6c958deb952ee81054824f35838b89d67 5069 main/binary-amd64/Packages.gz
+ f7992bc235f634e96332422f4232f83fe772ddd5 11194 main/binary-amd64/Packages
+ 774e120e93e49c694ba45ac228b8f91ee6ff818e 4340 main/binary-amd64/Packages.gz
  76a37219a18524972a716203f7b990a72cc180a4 141 main/binary-amd64/Release
  da39a3ee5e6b4b0d3255bfef95601890afd80709 0 main/source/Sources
  46c6643f07aa7f6bfe7118de926b86defc5087c4 20 main/source/Sources.gz
  e2cdf31f4854c6c1874dcb30bebb9775f8c93c17 142 main/source/Release
 SHA256:
- 6c7c7806f69f9f67a1eef457186cc070479d8e04d465f3640968d4aec9b69e3b 15103 main/binary-i386/Packages
- b66b401a6730dc5497bd93d892e82b3e660629a474fbec0c89b78fb2cf59fb2a 5068 main/binary-i386/Packages.gz
+ 9c532857ce76e1ee8936e88c7e20b4c2fab81c4f094613b625941c5f36d8f336 11190 main/binary-i386/Packages
+ fcad7043089598eaa563a3101643f8cd56c82d4c3453f6cd89edb1d0c4c3c04d 4339 main/binary-i386/Packages.gz
  ea4f3529cc1f554ddcad8999bc4fc9f13965dd519abefc4f5c13e30ac0b404db 140 main/binary-i386/Release
- c3e6dd5e61bc12fd51ea8459cadbab813665f2160653c7a3c4cca00e5f753a06 15107 main/binary-amd64/Packages
- cf175a327be98c599a824280b2d39d66e0d2db2587588d12dc471f3cf16de657 5069 main/binary-amd64/Packages.gz
+ 6ef70a2ca7f39363900cbc83580ecc194e4fafd541f9e75b1102be4984f967ce 11194 main/binary-amd64/Packages
+ f7330226a5cb7224b07aeb066ae7ef0202043937812ad438e5042484c96d6a4f 4340 main/binary-amd64/Packages.gz
  de8baa87e4f3ca87b82bbed792203046bb96df9e4e3e549f78702c109511216b 141 main/binary-amd64/Release
  e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 0 main/source/Sources
  59869db34853933b239f1e2219cf7d431da006aa919635478511fabbfc8849d2 20 main/source/Sources.gz
@@ -41,7 +41,7 @@ SHA256:
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1
 
-iF4EAREIAAYFAlXdzQIACgkQJ6WsWgGTdiEyPAD/bXyN+KMR2uMDD8L4JPAQxyfl
-d0oIVwTxplTD7dUaMsoBAJR7Ni/F+a2I39sTnY1Wl2NuPzaN/9YOdxjoOeCrhr5O
-=IvVB
+iF4EAREIAAYFAlYipRQACgkQJ6WsWgGTdiFcGwD/W4/rmn109gfQs7amA831TnbU
+V5fC1SXLq133HDhrYbAA/23aZcCwqrwvzEzuWGS8eNsaqahAOUJbKaR86z5DBjKR
+=zGTI
 -----END PGP SIGNATURE-----
